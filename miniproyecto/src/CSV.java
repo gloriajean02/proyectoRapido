@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 
 
 public class CSV {
-    private final List<Map<String, String>> dato = new ArrayList<>();
+    private static final List<Map<String, String>> dato = new ArrayList<>();
 
     public void leerCSV(File file){
         try (BufferedReader br = new BufferedReader(new FileReader(file))){
@@ -40,5 +41,35 @@ public class CSV {
             e.printStackTrace();/*Muestra el error completo con la línea donde ocurrió */
         }
     }
-    
+
+    public static void escrituraCSV(String nomarchivo){
+        try(FileWriter writer = new FileWriter(nomarchivo + ".csv")){
+
+            if (!dato.isEmpty()){/*Verificamos si hay datos para escribir */
+                Map<String, String> primerdato = dato.get(0);/*Obtenemos la clave que serán los encabezados */
+                writer.write(String.join(",", primerdato.keySet()) + "\n");/*Escribirmos los encabezados en la primera línea */
+
+                for(Map<String, String> entry : dato){/*Escribimos los datos fila por fila */
+                StringBuilder fila = new StringBuilder();
+
+                    for(String value : entry.values()){ /*Recorremos los valores de cada fila */
+                        if(value == null){/*Si el valor es null, lo reemplazamos por una cadena vacía */
+                            fila.append("").append(",");
+                        }else{
+                            fila.append(value).append(",");
+                        }
+                    }
+
+                    if(fila.length() > 0){/*Eliminamos la última coma */
+                        fila.setLength(fila.length() -1);
+                    }
+
+                    writer.write(fila.toString() + "\n");/*Escribimos la fila en el archivo */
+                }
+                    System.out.println("Archivo CSV exportado correctamente.");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();/*Muestra el error completo con la línea donde ocurrió */
+        }
+    }
 }
