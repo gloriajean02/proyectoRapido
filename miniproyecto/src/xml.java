@@ -1,87 +1,91 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashMap;
 
-import org.w3c.dom.*;
-import javax.xml.parsers.*;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.*;
-import javax.xml.transform.stream.*;
-import java.io.*;
-import java.util.*;
+public class XML {
 
-public class xml{
+    File fichero;
 
-    public static List<Map<String, String>> leerXML(File archivo, String etiquetaRaiz) {
-        List<Map<String, String>> datos = new ArrayList<>();
-        try {
-            DocumentBuilderFactory fabrica = DocumentBuilderFactory.newInstance();
-            DocumentBuilder constructor = fabrica.newDocumentBuilder();
-            Document doc = constructor.parse(archivo);
-            doc.getDocumentElement().normalize();
-
-            NodeList listaElementos = doc.getElementsByTagName(etiquetaRaiz);
-            for (int i = 0; i < listaElementos.getLength(); i++) {
-                Node nodo = listaElementos.item(i);
-                if (nodo.getNodeType() == Node.ELEMENT_NODE) {
-                    Element elemento = (Element) nodo;
-                    Map<String, String> mapaDatos = new HashMap<>();
-
-                    NodeList hijos = elemento.getChildNodes();
-                    for (int j = 0; j < hijos.getLength(); j++) {
-                        Node hijo = hijos.item(j);
-                        if (hijo.getNodeType() == Node.ELEMENT_NODE) {
-                            mapaDatos.put(hijo.getNodeName(), hijo.getTextContent());
-                        }
-                    }
-                    datos.add(mapaDatos);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return datos;
+    public XML (){
+        fichero = new File("miniproyecto/fichero/coches.xml");
     }
 
-    public static void escribirXML(List<Map<String, String>> datos, String etiquetaRaiz, String archivoSalida) {
-        try {
-            DocumentBuilderFactory fabrica = DocumentBuilderFactory.newInstance();
-            DocumentBuilder constructor = fabrica.newDocumentBuilder();
-            Document doc = constructor.newDocument();
+    public XML(String ruta){
+        this.fichero = new File(ruta);
+    }
 
-            Element elementoRaiz = doc.createElement(etiquetaRaiz + "s");
-            doc.appendChild(elementoRaiz);
+    public File getFichero() {
+        return fichero;
+    }
 
-            for (Map<String, String> mapa : datos) {
-                Element elemento = doc.createElement(etiquetaRaiz);
-                elementoRaiz.appendChild(elemento);
+    public void setFichero(String newRuta) {
+        this.fichero = new File(newRuta);
+    }
 
-                for (Map.Entry<String, String> entry : mapa.entrySet()) {
-                    Element nodo = doc.createElement(entry.getKey());
-                    nodo.appendChild(doc.createTextNode(entry.getValue()));
-                    elemento.appendChild(nodo);
-                }
+    public boolean comprobarExiste(){
+        if (fichero.exists()) {
+            return true;
+        } else return false;
+    }
+
+    public boolean comprobarFicheroVacio() {
+        boolean vacio = false;
+        try (BufferedReader br = new BufferedReader(new FileReader(fichero))) {
+            if ((br.readLine()) == null){
+                vacio = true;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            vacio = true;
+        }
+        return vacio;
+    }
+
+   public void escribirFichero(GestorDatos gestor) {
+    try (BufferedReader br = new BufferedReader(new FileReader(fichero))) {
+        String linea;
+        br.readLine(); 
+        boolean dentroDeElemento = false;
+        HashMap<String, String> nuevoElemento = new HashMap<>();
+
+        while ((linea = br.readLine()) != null) {
+            linea = linea.trim();
+    
+            if (linea.startsWith("<") && !linea.startsWith("</") && !linea.contains("</")) {
+                dentroDeElemento = true;
+                nuevoElemento = new HashMap<>();
             }
 
-            TransformerFactory fabricaTransformador = TransformerFactory.newInstance();
-            Transformer transformador = fabricaTransformador.newTransformer();
-            transformador.setOutputProperty(OutputKeys.INDENT, "yes");
-            DOMSource fuente = new DOMSource(doc);
-            StreamResult resultado = new StreamResult(new File(archivoSalida));
-            transformador.transform(fuente, resultado);
+            if (linea.startsWith("</")) {
+                dentroDeElemento = false;
+                gestor.insertarElemento(nuevoElemento);
+                
+            }
 
-            System.out.println("Archivo XML generado correctamente.");
-        } catch (Exception e) {
-            e.printStackTrace();
+            if (dentroDeElemento) {
+                linea = linea.replace("<", "").replace(">", " ").replace("/", " ");
+                String[] palabras = linea.split(" ");
+                
+                if (palabras.length > 2) { 
+                    String clave = palabras[0].trim();
+                    String valor = palabras[1].trim();
+
+                    nuevoElemento.put(clave, valor);
+
+
+                }
+            }
         }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+
+    @Override
+    public String toString() {
+        return "Fichero: "+fichero.getName();
     }
 
-    public static void main(String[] args) {
-        File archivo = new File("C:\\Users\\Guada\\Desktop\\DAW\\Programación\\Tema 6\\proyectoRapido\\miniproyecto\\fichero\\coches.xml");
-       
-        List<Map<String, String>> datos = leerXML(archivo, "coche");
-
-        for (Map<String, String> mapa : datos) {
-            System.out.println(mapa);
-        }
-
-        escribirXML(datos, "coche", "nuevo_coches.xml");
-    }
 }
