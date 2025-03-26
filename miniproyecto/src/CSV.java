@@ -115,14 +115,5 @@ public class CSV {
                 e.printStackTrace();/*Muestra el error completo con la línea donde ocurrió */
         }
     }
-    
 }
-/*csv.leerCSV(archivo); // Leer el archivo CSV si existe
-// Mostrar la ruta de la carpeta seleccionada
-System.out.println("Ruta de la carpeta seleccionada: " + csv.getCarpetaSeleccionada().getAbsolutePath());
 
-// Mostrar el contenido de la carpeta
-System.out.println("Contenido de la carpeta seleccionada: \n" + csv.getContenidoCarpeta());
-
-// Mostrar el fichero seleccionado
-System.out.println("Fichero seleccionado: " + csv.getFicheroSeleccionado().getAbsolutePath());*/
