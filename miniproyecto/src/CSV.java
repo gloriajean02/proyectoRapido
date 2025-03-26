@@ -7,7 +7,7 @@ public class CSV {
 
     /*Constructor por defecto que establece un archivo CSV por defecto */
     public CSV() {
-        fichero = new File("miniproyecto/fichero/coches.csv");
+        fichero = new File("proyectoRapido\\miniproyecto/fichero/coches.csv");
         carpetaSeleccionada = fichero.getParentFile();
     }
 
@@ -54,6 +54,7 @@ public class CSV {
     }
 
     /*Método para comprobar si el archivo CSV está vacío */
+    @SuppressWarnings("CallToPrintStackTrace")
     public boolean comprobarFicheroVacio() {
         boolean vacio = false;
         try (BufferedReader br = new BufferedReader(new FileReader(fichero))) {
@@ -68,6 +69,7 @@ public class CSV {
     }
 
     /*Método para leer archivo CSV y almacenar sus datos GestorDatos */
+    @SuppressWarnings("CallToPrintStackTrace")
     public void escribirFichero(GestorDatos gestor) {
         try (BufferedReader br = new BufferedReader(new FileReader(fichero))) {
             String primeraLinea = br.readLine(); // Leer encabezado
