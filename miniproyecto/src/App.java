@@ -1,26 +1,26 @@
-import java.io.File;
 
 public class App {
     public static void main(String[] args) {
         /*Crea una instancia de la clase CSV*/
-        CSV csv = new CSV();
+        CSV csv = new CSV ("C:\\Users\\maria\\OneDrive\\Escritorio\\Desarrollo de Aplicaciones Web (DAW1ºA)\\Programación\\3TRIMESTRE\\proyecto\\proyectoRapido\\miniproyecto\\fichero\\coches.csv");
+        GestorDatos gestor = new GestorDatos();
 
-        
-        File archivoCSV = new File("C:\\Users\\maria\\OneDrive\\Escritorio\\Desarrollo de Aplicaciones Web (DAW1ºA)\\Programación\\3TRIMESTRE\\proyecto\\proyectoRapido\\miniproyecto\\fichero\\coches.csv");  // Asegúrate de poner la ruta correcta del archivo CSV
-
-        /*Llamada al método para leer el archivo CSV*/
-        csv.leerCSV(archivoCSV);
-
-        /*Muestra la información de la carpeta seleccionada*/
-        System.out.println("Ruta de la carpeta seleccionada: " + csv.getCarpetaSeleccionada().getAbsolutePath());
-
-        /*Muestra el contenido de la carpeta seleccionada*/
-        System.out.println("Contenido de la carpeta seleccionada: ");
-        System.out.println(csv.getContenidoCarpeta());
-
-        /*Muestra el fichero seleccionado*/
-        System.out.println("Fichero seleccionado: " + csv.getFicheroSeleccionado().getName());
-
+        if (csv.comprobarExiste()) {
+            System.out.println("El archivo existe.");
+            System.out.println("Ruta de la carpeta seleccionada: " + csv.getCarpetaSeleccionada());
+            System.out.println("Contenido de la carpeta seleccionada:\n" + csv.getContenidoCarpeta());
+            System.out.println("Fichero seleccionado: " + csv.getFichero().getName());
+            
+            if (!csv.comprobarFicheroVacio()) {
+                csv.escribirFichero(gestor);
+                System.out.println("Datos leídos del CSV:");
+                System.out.println(gestor);
+            } else {
+                System.out.println("El archivo está vacío.");
+            }
+        } else {
+            System.out.println("El archivo no existe.");
+        }
     }
 }
 
