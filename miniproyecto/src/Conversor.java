@@ -39,7 +39,7 @@ public class Conversor {
         this.elementoItem = elementoItem;
     }
 
-    public void convertirXML() {
+    public void conversorXML() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(rutaArchivo))) {
             bw.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
             bw.write("<" + elementoRaiz + ">\n");
