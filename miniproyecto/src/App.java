@@ -121,9 +121,18 @@ public class App {
             opcion = Integer.parseInt(sc.nextLine());
 
             switch (opcion) {
-                case 1 -> lecturaFichero(carpetaseleccionada);
-                case 0 -> System.out.println("Volviendo al menú anterior");
-                default -> System.out.println("Valor incorrecto");
+                case 1: 
+                    lecturaFichero(carpetaseleccionada);
+                    menu3(carpetaseleccionada);
+                break;
+            
+                case 0:
+                    System.out.println("Volviendo al menú anterior");
+                break;
+
+                default:
+                    System.out.println("Valor incorrecto");
+                break;
             }
 
         } while (opcion != 0);
@@ -147,10 +156,23 @@ public class App {
             opcion = Integer.parseInt(sc.nextLine());
 
             switch (opcion) {
-                case 1 -> System.out.println();
-                case 2 -> lecturaFichero(carpetaseleccionada);
-                case 0 -> System.out.println("Volviendo al menú anterior");
-                default -> System.out.println("Valor incorrecto");
+
+                case 1: 
+                    menu4();
+                break;
+
+                case 2: 
+                    lecturaFichero(carpetaseleccionada);
+                    menu3(carpetaseleccionada);
+                break;
+            
+                case 0:
+                    System.out.println("Volviendo al menú anterior");
+                break;
+
+                default:
+                    System.out.println("Valor incorrecto");
+                break;
             }
 
         } while (opcion != 0);
@@ -250,5 +272,6 @@ public class App {
         }
 
     }
+
 
 }
