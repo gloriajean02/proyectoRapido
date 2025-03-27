@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class App {
 
     public static Scanner sc = new Scanner(System.in);
+    public static GestorDatos gestor = new GestorDatos();
 
     public static void main(String[] args) {
 
@@ -125,6 +126,18 @@ public class App {
                 File fichero = new File(ruta);
                 if(fichero.exists()){
                     System.out.println("Fichero correcto");
+                    if(comprobarExtension(fichero) == ".csv"){
+                        CSV csv = new CSV (ruta);
+                        csv.escribirFichero(gestor);
+                    }else if(comprobarExtension(fichero) == ".json"){
+                        Json json = new Json (ruta);
+                        json.escribirFichero(gestor);
+                    }else if(comprobarExtension(fichero) == ".xml"){
+                        xml XML = new xml (ruta);
+                        XML.escribirFichero(gestor);
+                    }else{
+                        System.out.println("Error");
+                    }
                 }else{
                     System.out.println("El fichero no ha sido encontrado");
                 }
