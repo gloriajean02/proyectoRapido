@@ -119,9 +119,6 @@ public class Conversor {
                 }
                 bw.newLine();
                 }
-                System.out.println("Archivo CSV creado correctamente en: " + rutaArchivo);
-            } else {
-                System.out.println("No hay datos en el Gestor para convertir.");
             }
 
         } catch (IOException e) {
