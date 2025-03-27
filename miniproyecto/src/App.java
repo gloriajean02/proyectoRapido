@@ -33,7 +33,7 @@ public class App {
                         System.out.println("Carpeta no encontrada");
                     }
                     break;
-                case 0:
+                case 2:
                     System.out.println("Saliendo del programa");
                     break;
                 default: System.out.println("Valor incorrecto");
@@ -126,13 +126,13 @@ public class App {
                 File fichero = new File(ruta);
                 if(fichero.exists()){
                     System.out.println("Fichero correcto");
-                    if(comprobarExtension(fichero) == ".csv"){
+                    if(comprobarExtension(fichero).equals(".csv")){
                         CSV csv = new CSV (ruta);
                         csv.escribirFichero(gestor);
-                    }else if(comprobarExtension(fichero) == ".json"){
+                    }else if(comprobarExtension(fichero).equals(".json")){
                         Json json = new Json (ruta);
                         json.escribirFichero(gestor);
-                    }else if(comprobarExtension(fichero) == ".xml"){
+                    }else if(comprobarExtension(fichero).equals(".xml")){
                         xml XML = new xml (ruta);
                         XML.escribirFichero(gestor);
                     }else{
@@ -143,7 +143,7 @@ public class App {
                 }
                     
                     break;
-                case 0:
+                case 2:
                     System.out.println("Saliendo del programa");
                     break;
                 default: System.out.println("Valor incorrecto");
