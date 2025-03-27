@@ -7,7 +7,7 @@ import java.util.HashMap;
 public class xml {
 
     private File fichero;
-    private File carpetaSelecionada;
+    private File carpetaSeleccionada;
 
     public xml (){
         fichero = new File("miniproyecto/fichero/coches.xml");
@@ -15,7 +15,7 @@ public class xml {
 
     public xml(String ruta){
         this.fichero = new File(ruta);
-        carpetaSelecionada = fichero.getParentFile();
+        carpetaSeleccionada = fichero.getParentFile();
     }
 
     public File getFichero() {
@@ -24,11 +24,25 @@ public class xml {
 
     public void setFichero(String newRuta) {
         this.fichero = new File(newRuta);
-        this.carpetaSelecionada = fichero.getParentFile();
+        this.carpetaSeleccionada = fichero.getParentFile();
     }
 
-    public File getCarpetaSelecionada() {
-        return carpetaSelecionada;
+    public File getCarpetaSeleccionada() {
+        return carpetaSeleccionada;
+    }
+
+    public String getContenidoCarpeta() {
+        if (carpetaSeleccionada != null && carpetaSeleccionada.isDirectory()) {
+            StringBuilder contenido = new StringBuilder();
+            File[] archivos = carpetaSeleccionada.listFiles();
+            if (archivos != null) {
+                for (File archivo : archivos) {
+                    contenido.append(archivo.getName()).append("\n");
+                }
+            }
+            return contenido.toString();
+        }
+        return "Carpeta vacía o no válida";
     }
 
     public boolean comprobarExiste(){

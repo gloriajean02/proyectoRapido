@@ -53,6 +53,15 @@ public class CSV {
         return fichero.exists();
     }
 
+    public boolean comprobarExtension(){
+        boolean extensionCorrecta = false;
+        if (fichero.getName().endsWith(".csv")) {
+            extensionCorrecta = true;
+        } 
+        
+        return extensionCorrecta;
+    }
+
     /*Método para comprobar si el archivo CSV está vacío */
     @SuppressWarnings("CallToPrintStackTrace")
     public boolean comprobarFicheroVacio() {
