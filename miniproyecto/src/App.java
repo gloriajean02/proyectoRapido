@@ -6,7 +6,7 @@ public class App {
 
     public static Scanner sc = new Scanner(System.in);
     public static GestorDatos gestor = new GestorDatos();
-    public static File fichero;
+
 
     public static void main(String[] args) {
 
@@ -73,8 +73,13 @@ public class App {
 
             switch (opcion) {
                 case 1: 
-                    lecturaFichero(carpetaseleccionada);
-                    menu3(carpetaseleccionada);
+                    System.out.println("\nContenido de la carpeta seleccionada: " + contenidoCarpeta(carpetaseleccionada));
+                    System.out.println("Qué archivo quieres seleccionar?");
+                    String nombrefichero = sc.nextLine();
+                    String ruta = carpetaseleccionada.getAbsolutePath() + "/" + nombrefichero;
+                    File fichero = new File(ruta);
+                    lecturaFichero(fichero, ruta);
+                    menu3(carpetaseleccionada, fichero);
                 break;
             
                 case 0:
@@ -90,7 +95,7 @@ public class App {
     }
 
 
-    public static void menu3(File carpetaseleccionada){
+    public static void menu3(File carpetaseleccionada, File fichero){
 
         int opcion = 0;
         do {
@@ -112,9 +117,14 @@ public class App {
                     menu4(fichero);
                 break;
 
-                case 2: 
-                    lecturaFichero(carpetaseleccionada);
-                    menu3(carpetaseleccionada);
+                case 2:
+                    System.out.println("\nContenido de la carpeta seleccionada: " + contenidoCarpeta(carpetaseleccionada));
+                    System.out.println("Qué archivo quieres seleccionar?");
+                    String nombrefichero = sc.nextLine();
+                    String ruta = carpetaseleccionada.getAbsolutePath() + "/" + nombrefichero;
+                    File nuevoFichero = new File(ruta);
+                    lecturaFichero(nuevoFichero, ruta);
+                    menu3(carpetaseleccionada, nuevoFichero);
                 break;
             
                 case 0:
@@ -192,6 +202,7 @@ public class App {
                     Conversor conversor = new Conversor(ruta, gestor, elementoRaiz, elementoItem);
                     conversor.conversorXML();
                 }
+            break;
             } else {
                 System.out.println("Error: El archivo ya es un XML, no se puede convertir");
             }
@@ -242,15 +253,8 @@ public class App {
         
     }
 
-    public static void lecturaFichero(File carpetaseleccionada){
-
-        System.out.println("\nContenido de la carpeta seleccionada: " + contenidoCarpeta(carpetaseleccionada));
-        System.out.println("Qué archivo quieres seleccionar?");
-        String nombrefichero = sc.nextLine();
-        String ruta = carpetaseleccionada.getAbsolutePath() + "/" + nombrefichero;
-        File fichero = new File(ruta);
-        if(fichero.exists()){
-                    
+    public static void lecturaFichero(File fichero, String ruta){
+        if(fichero.exists()){                   
             if(comprobarExtension(fichero).equals(".csv")){
                 CSV csv = new CSV (ruta);
                 csv.escribirFichero(gestor);
