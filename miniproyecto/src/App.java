@@ -28,7 +28,7 @@ public class App {
                         System.out.println("Carpeta selecciona con éxito");
                         System.out.println("Ruta seleccionada: "+seleccionarCarpeta().getAbsolutePath());
                         System.out.println("Contenido de la carpeta seleccionada: " + contenidoCarpeta());
-                        menu2();
+                        menu2(seleccionarCarpeta());
                     }else{
                         System.out.println("Carpeta no encontrada");
                     }
@@ -40,57 +40,57 @@ public class App {
                     break;
             }
 
-        } while (opcion != 0);
+        } while (opcion != 2);
         
 
         
-        /*Crea una instancia de la clase CSV*/
-        CSV csv = new CSV();
+    //     /*Crea una instancia de la clase CSV*/
+    //     CSV csv = new CSV();
 
         
-        File archivoCSV = new File("C:\\Users\\maria\\OneDrive\\Escritorio\\Desarrollo de Aplicaciones Web (DAW1ºA)\\Programación\\3TRIMESTRE\\proyecto\\proyectoRapido\\miniproyecto\\fichero\\coches.csv");  // Asegúrate de poner la ruta correcta del archivo CSV
+    //     File archivoCSV = new File("C:\\Users\\maria\\OneDrive\\Escritorio\\Desarrollo de Aplicaciones Web (DAW1ºA)\\Programación\\3TRIMESTRE\\proyecto\\proyectoRapido\\miniproyecto\\fichero\\coches.csv");  // Asegúrate de poner la ruta correcta del archivo CSV
 
-        /*Llamada al método para leer el archivo CSV*/
-        csv.leerCSV(archivoCSV);
+    //     /*Llamada al método para leer el archivo CSV*/
+    //     csv.leerCSV(archivoCSV);
 
-        /*Muestra la información de la carpeta seleccionada*/
-        System.out.println("Ruta de la carpeta seleccionada: " + csv.getCarpetaSeleccionada().getAbsolutePath());
+    //     /*Muestra la información de la carpeta seleccionada*/
+    //     System.out.println("Ruta de la carpeta seleccionada: " + csv.getCarpetaSeleccionada().getAbsolutePath());
 
-        /*Muestra el contenido de la carpeta seleccionada*/
-        System.out.println("Contenido de la carpeta seleccionada: ");
-        System.out.println(csv.getContenidoCarpeta());
+    //     /*Muestra el contenido de la carpeta seleccionada*/
+    //     System.out.println("Contenido de la carpeta seleccionada: ");
+    //     System.out.println(csv.getContenidoCarpeta());
 
-        /*Muestra el fichero seleccionado*/
-        System.out.println("Fichero seleccionado: " + csv.getFicheroSeleccionado().getName());
+    //     /*Muestra el fichero seleccionado*/
+    //     System.out.println("Fichero seleccionado: " + csv.getFicheroSeleccionado().getName());
 
         
     
-    System.out.println("Ingresa la ruta del archivo: ");
-    String ruta = sc.nextLine();
-    /*Crea una instancia de la clase CSV*/
-    CSV csv = new CSV (ruta);
+    // System.out.println("Ingresa la ruta del archivo: ");
+    // String ruta = sc.nextLine();
+    // /*Crea una instancia de la clase CSV*/
+    // CSV csv = new CSV (ruta);
 
-    GestorDatos gestor = new GestorDatos();
+    // GestorDatos gestor = new GestorDatos();
 
-        if (csv.comprobarExiste()) {
-        System.out.println("El archivo existe.");
-        System.out.println();
-        System.out.println("Ruta de la carpeta seleccionada: " + csv.getCarpetaSeleccionada());
-        System.out.println();
-        System.out.println("Contenido de la carpeta seleccionada:\n" + getContenidoCarpeta());
-        System.out.println("Fichero seleccionado: " + csv.getFichero().getName());
-        System.out.println();
+    //     if (csv.comprobarExiste()) {
+    //     System.out.println("El archivo existe.");
+    //     System.out.println();
+    //     System.out.println("Ruta de la carpeta seleccionada: " + csv.getCarpetaSeleccionada());
+    //     System.out.println();
+    //     System.out.println("Contenido de la carpeta seleccionada:\n" + getContenidoCarpeta());
+    //     System.out.println("Fichero seleccionado: " + csv.getFichero().getName());
+    //     System.out.println();
         
-        if (!csv.comprobarFicheroVacio()) {
-            csv.escribirFichero(gestor);
-            System.out.println("Datos leídos del CSV:");
-            System.out.println(gestor);
-        } else {
-            System.out.println("El archivo está vacío.");
-        }
-    } else {
-        System.out.println("El archivo no existe.");
-    }
+    //     if (!csv.comprobarFicheroVacio()) {
+    //         csv.escribirFichero(gestor);
+    //         System.out.println("Datos leídos del CSV:");
+    //         System.out.println(gestor);
+    //     } else {
+    //         System.out.println("El archivo está vacío.");
+    //     }
+    // } else {
+    //     System.out.println("El archivo no existe.");
+    // }
     }
 
     public static void menuPrincipal(){
