@@ -17,8 +17,9 @@ public class App {
             System.out.println("║═════════════════════════════════════════║");
 
             menuPrincipal();
+            System.out.println("");
 
-            System.out.println("\n ¿Qué desea realizar?\n");
+            System.out.println( "¿Qué desea realizar?\n");
             opcion = Integer.parseInt(sc.nextLine());
 
             switch (opcion) {
@@ -97,7 +98,7 @@ public class App {
 
     public static void menuPrincipal(){
         System.out.println("╔═════════════════════════════════════════╗");
-        System.out.println("║              MENÚ PRINCIPAL             ║");
+        System.out.println("║             ¿QUÉ DESEA HACER?           ║");
         System.out.println("║═════════════════════════════════════════║");
         System.out.println("║ 1 - Seleccionar carpeta                 ║");
         System.out.println("║ 0 - Salir                               ║");
@@ -110,7 +111,7 @@ public class App {
         do {
 
             System.out.println("╔═════════════════════════════════════════╗");
-            System.out.println("║              MENÚ PRINCIPAL             ║");
+            System.out.println("║             ¿QUÉ DESEA HACER?           ║");
             System.out.println("║═════════════════════════════════════════║");
             System.out.println("║ 1 - Lectura de fichero                  ║");
             System.out.println("║ 0 - Salir                               ║");
@@ -120,64 +121,70 @@ public class App {
             opcion = Integer.parseInt(sc.nextLine());
 
             switch (opcion) {
-                case 1:
-                System.out.println("Contenido de la carpeta seleccionada: " + contenidoCarpeta(carpetaseleccionada));
-                System.out.println("Qué archivo quieres seleccionar?");
-                String nombrefichero = sc.nextLine();
-                String ruta = carpetaseleccionada.getAbsolutePath() + "/" + nombrefichero;
-                File fichero = new File(ruta);
-                if(fichero.exists()){
-                    
-                    if(comprobarExtension(fichero).equals(".csv")){
-                        CSV csv = new CSV (ruta);
-                        csv.escribirFichero(gestor);
-                        System.out.println("Fichero correcto");
-                    }else if(comprobarExtension(fichero).equals(".json")){
-                        Json json = new Json (ruta);
-                        json.escribirFichero(gestor);
-                        System.out.println("Fichero correcto");
-                    }else if(comprobarExtension(fichero).equals(".xml")){
-                        xml XML = new xml (ruta);
-                        XML.escribirFichero(gestor);
-                        System.out.println("Fichero correcto");
-                    }else{
-                        System.out.println("Error");
-                    }
-                }else{
-                    System.out.println("El fichero no ha sido encontrado");
-                }
-                    
-                    break;
-                case 0:
-                    System.out.println("Saliendo del programa");
-                    break;
-                default: System.out.println("Valor incorrecto");
-                    break;
+                case 1 -> lecturaFichero(carpetaseleccionada);
+                case 0 -> System.out.println("Volviendo al menú anterior");
+                default -> System.out.println("Valor incorrecto");
             }
 
         } while (opcion != 0);
     }
 
 
-    public static void menu3(){
-        System.out.println("╔═════════════════════════════════════════╗");
-        System.out.println("║              MENÚ PRINCIPAL             ║");
-        System.out.println("║═════════════════════════════════════════║");
-        System.out.println("║ 1 - Convertir fichero                   ║");
-        System.out.println("║ 2 - Leer otro fichero                   ║");
-        System.out.println("║ 3 - Salir                               ║");
-        System.out.println("║═════════════════════════════════════════║");
+    public static void menu3(File carpetaseleccionada){
+
+        int opcion = 0;
+        do {
+            
+            System.out.println("╔═════════════════════════════════════════╗");
+            System.out.println("║             ¿QUÉ DESEA HACER?           ║");
+            System.out.println("║═════════════════════════════════════════║");
+            System.out.println("║ 1 - Convertir fichero                   ║");
+            System.out.println("║ 2 - Leer otro fichero                   ║");
+            System.out.println("║ 0 - Salir                               ║");
+            System.out.println("║═════════════════════════════════════════║");
+
+            System.out.println("¿Qué desea realizar?");
+            opcion = Integer.parseInt(sc.nextLine());
+
+            switch (opcion) {
+                case 1 -> System.out.println();
+                case 2 -> lecturaFichero(carpetaseleccionada);
+                case 0 -> System.out.println("Volviendo al menú anterior");
+                default -> System.out.println("Valor incorrecto");
+            }
+
+        } while (opcion != 0);
+
+
     }
 
     public static void menu4(){
-        System.out.println("╔═════════════════════════════════════════╗");
-        System.out.println("║              MENÚ PRINCIPAL             ║");
-        System.out.println("║═════════════════════════════════════════║");
-        System.out.println("║ 1 - .CSV                                ║");
-        System.out.println("║ 2 - .JSON                               ║");
-        System.out.println("║ 3 - .XML                                ║");
-        System.out.println("║ 4 - Salir                               ║");
-        System.out.println("║═════════════════════════════════════════║");
+
+        int opcion = 0;
+        do {
+            
+            System.out.println("╔═════════════════════════════════════════╗");
+            System.out.println("║             ¿QUÉ DESEA HACER?           ║");
+            System.out.println("║═════════════════════════════════════════║");
+            System.out.println("║ 1 - .CSV                                ║");
+            System.out.println("║ 2 - .JSON                               ║");
+            System.out.println("║ 3 - .XML                                ║");
+            System.out.println("║ 0 - Salir                               ║");
+            System.out.println("║═════════════════════════════════════════║");
+
+            System.out.println("¿Qué desea realizar?");
+            opcion = Integer.parseInt(sc.nextLine());
+
+            switch (opcion) {
+                case 1 -> System.out.println();
+                case 2 -> System.out.println();
+                case 3 -> System.out.println();
+                case 0 -> System.out.println("Volviendo al menú anterior");
+                default -> System.out.println("Valor incorrecto");
+            }
+
+        } while (opcion != 0);
+
     }
 
     public static File comprobarCarpeta(File carpeta){
@@ -212,6 +219,36 @@ public class App {
             return "Tipo de archivo no válido";
         }
         
+    }
+
+    public static void lecturaFichero(File carpetaseleccionada){
+
+        System.out.println("\nContenido de la carpeta seleccionada: " + contenidoCarpeta(carpetaseleccionada));
+        System.out.println("Qué archivo quieres seleccionar?");
+        String nombrefichero = sc.nextLine();
+        String ruta = carpetaseleccionada.getAbsolutePath() + "/" + nombrefichero;
+        File fichero = new File(ruta);
+        if(fichero.exists()){
+                    
+            if(comprobarExtension(fichero).equals(".csv")){
+                CSV csv = new CSV (ruta);
+                csv.escribirFichero(gestor);
+                System.out.println("Fichero correcto");
+            }else if(comprobarExtension(fichero).equals(".json")){
+                Json json = new Json (ruta);
+                json.escribirFichero(gestor);
+                System.out.println("Fichero correcto");
+            }else if(comprobarExtension(fichero).equals(".xml")){
+                xml XML = new xml (ruta);
+                XML.escribirFichero(gestor);
+                System.out.println("Fichero correcto");
+            }else{
+                System.out.println("Error");
+            }
+        }else{
+            System.out.println("El fichero no ha sido encontrado");
+        }
+
     }
 
 }
