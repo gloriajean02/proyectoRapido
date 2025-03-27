@@ -1,5 +1,4 @@
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
@@ -7,7 +6,6 @@ import java.util.List;
 
 public class Conversor {
 
-    File fichero;
     String rutaArchivo;
     GestorDatos gestor;
 
@@ -18,8 +16,7 @@ public class Conversor {
     }
 
     // Constructor que permite personalizar la ruta del archivo
-    public Conversor(String ruta, String rutaArchivo, GestorDatos gestor) {
-        this.fichero = new File(ruta); // Ruta del archivo de entrada
+    public Conversor(String rutaArchivo, GestorDatos gestor) {
         this.rutaArchivo = rutaArchivo; // Ruta del archivo de salida
         this.gestor = gestor; // Gestor con los datos que se van a convertir
     }
