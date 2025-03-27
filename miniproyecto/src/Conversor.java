@@ -40,6 +40,25 @@ public class Conversor {
         this.elementoItem = elementoItem;
     }
 
+    public void convertirXML() {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(rutaArchivo))) {
+            bw.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+            bw.write("<" + elementoRaiz + ">\n");
+
+            for (HashMap<String, String> elemento : gestor.getGestor()) {
+                bw.write("  <" + elementoItem + ">\n");
+                for (String clave : elemento.keySet()) {
+                    bw.write("    <" + clave + ">" + elemento.get(clave) + "</" + clave + ">\n");
+                }
+                bw.write("  </" + elementoItem + ">\n");
+            }
+
+            bw.write("</" + elementoRaiz + ">\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void conversorJSON(){
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(rutaArchivo, true))) {
             bw.write("[\n");
