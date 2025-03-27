@@ -141,11 +141,11 @@ public class App {
 
     }
 
-    public static void menu4(File fichero) {
+    public static void menu4(File fichero){
 
         int opcion = 0;
         do {
-    
+            
             System.out.println("╔═════════════════════════════════════════╗");
             System.out.println("║             ¿QUÉ DESEA HACER?           ║");
             System.out.println("║═════════════════════════════════════════║");
@@ -154,78 +154,69 @@ public class App {
             System.out.println("║ 3 - .XML                                ║");
             System.out.println("║ 0 - Salir                               ║");
             System.out.println("║═════════════════════════════════════════║");
-    
+
             System.out.println("¿Qué desea realizar?");
             opcion = Integer.parseInt(sc.nextLine());
-    
+
             switch (opcion) {
-    
-                case 1:
-                    if (!fichero.getName().endsWith(".csv")) {
-                        System.out.println("¿En qué ruta quieres alojar el archivo convertido? (Incluye el nombre del archivo)");
-                        String ruta = sc.nextLine();
-                        File archivoDestino = new File(ruta);
-                        if (archivoDestino.getParentFile().exists()) {
-                            Conversor conversor = new Conversor(ruta, gestor);
-                            conversor.conversorCSV();
-                            System.out.println("Archivo convertido a CSV con éxito.");
-                        } else {
-                            System.out.println("Error: La ruta especificada no es válida.");
-                        }
-                    } else {
-                        System.out.println("Error: El archivo ya es un CSV, no se puede convertir.");
-                    }
-                    break;
-    
-                case 2:
-                    if (!fichero.getName().endsWith(".json")) {
-                        System.out.println("¿En qué ruta quieres alojar el archivo convertido? (Incluye el nombre del archivo, e.g., C:/ruta/archivo.json)");
-                        String ruta = sc.nextLine();
-                        File archivoDestino = new File(ruta);
-                        if (archivoDestino.getParentFile().exists()) {
-                            Conversor conversor = new Conversor(ruta, gestor);
-                            conversor.conversorJSON();
-                            System.out.println("Archivo convertido a JSON con éxito.");
-                        } else {
-                            System.out.println("Error: La ruta especificada no es válida.");
-                        }
-                    } else {
-                        System.out.println("Error: El archivo ya es un JSON, no se puede convertir.");
-                    }
-                    break;
-    
-                case 3:
-                    if (!fichero.getName().endsWith(".xml")) {
-                        System.out.println("¿En qué ruta quieres alojar el archivo convertido? (Incluye el nombre del archivo, e.g., C:/ruta/archivo.xml)");
-                        String ruta = sc.nextLine();
-                        File archivoDestino = new File(ruta);
-    
-                        if (archivoDestino.getParentFile().exists()) {
-                            System.out.println("¿Cómo te gustaría llamar al elemento raíz?");
-                            String elementoRaiz = sc.nextLine();
-                            System.out.println("¿Cómo te gustaría llamar a los elementos?");
-                            String elementoItem = sc.nextLine();
-                            Conversor conversor = new Conversor(ruta, gestor, elementoRaiz, elementoItem);
-                            conversor.conversorXML();
-                            System.out.println("Archivo convertido a XML con éxito.");
-                        } else {
-                            System.out.println("Error: La ruta especificada no es válida.");
-                        }
-                    } else {
-                        System.out.println("Error: El archivo ya es un XML, no se puede convertir.");
-                    }
-                    break;
-    
-                case 0:
-                    System.out.println("Volviendo al menú anterior.");
-                    break;
-    
-                default:
-                    System.out.println("Valor incorrecto.");
-                    break;
+
+            case 1:
+            if(!fichero.getName().endsWith(".csv")){
+                System.out.println("¿En qué ruta quieres alojar el archivo?");
+                String ruta=sc.nextLine();
+                File archivoDestino = new File(ruta);
+                if(archivoDestino.exists()){
+                Conversor conversor = new Conversor(ruta, gestor);
+                conversor.conversorCSV();
+                }
+                }else{
+                    System.out.println("Error: El archivo ya es un CSV, no se puede convertir");
+                }               
+                break;
+
+            case 2:
+            if(!fichero.getName().endsWith(".json")){
+                System.out.println("¿En qué ruta quieres alojar el archivo?");
+                String ruta=sc.nextLine();
+                File archivoDestino = new File(ruta);
+                if(archivoDestino.exists()){
+                Conversor conversor = new Conversor(ruta, gestor);
+                conversor.conversorJSON();
+                }
+            }else{
+                System.out.println("Error: El archivo ya es un Json, no se puede convertir");
+            } 
+            break;
+
+            case 3:
+            if(!fichero.getName().endsWith(".xml")){
+                System.out.println("¿En qué ruta quieres alojar el archivo?");
+                String ruta = sc.nextLine();
+                File archivoDestino = new File(ruta);
+                
+                if(archivoDestino.exists()){
+                    System.out.println("¿Cómo te gustaría llamar al elemento raíz?");
+                    String elementoRaiz = sc.nextLine();
+                    System.out.println("¿Cómo te gustaría llamar a los elementos?");
+                    String elementoItem = sc.nextLine();
+                    Conversor conversor = new Conversor(ruta, gestor, elementoRaiz, elementoItem);
+                    conversor.conversorXML();
+                }
+            break;
+            } else {
+                System.out.println("Error: El archivo ya es un XML, no se puede convertir");
             }
-    
+            break;
+            case 0:
+                System.out.println("Volviendo al menú anterior");
+                break;
+                default:
+                System.out.println("Valor incorrecto");
+                break;
+            }
+
         } while (opcion != 0);
+
     }
 
     public static File comprobarCarpeta(File carpeta){
