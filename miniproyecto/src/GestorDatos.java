@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class GestorDatos {
+public class GestorDatos{
     private ArrayList<HashMap<String,String>> gestor;
 
     /**
@@ -40,6 +40,14 @@ public class GestorDatos {
 
     }
 
-   
+    public int size() {
+       return gestor.size();
+    }
+
+    public ArrayList<HashMap<String, String>> getGestor() {
+        return gestor;
+    }
 
 }
+   
+
