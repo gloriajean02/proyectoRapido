@@ -20,6 +20,10 @@ public class GestorDatos {
         gestor.add(elemento);
     }
 
+    public ArrayList<HashMap<String, String>> getElementos() {
+        return gestor;
+    }
+
     @Override
     public String toString() {
     String cadenaString = "";
