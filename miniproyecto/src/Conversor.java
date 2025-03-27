@@ -9,6 +9,8 @@ public class Conversor {
 
     String rutaArchivo;
     GestorDatos gestor;
+    private String elementoRaiz;
+    private String elementoItem;
 
     public Conversor (GestorDatos gestor){
         rutaArchivo = "miniproyecto/fichero";
@@ -18,6 +20,20 @@ public class Conversor {
     public Conversor(String rutaArchivo, GestorDatos gestor){
         this.rutaArchivo = rutaArchivo;
         this.gestor = gestor;
+    }
+
+    public Conversor(GestorDatos gestor, String elementoRaiz, String elementoItem) {
+        this.rutaArchivo = "miniproyecto/fichero/datos.xml";
+        this.gestor = gestor;
+        this.elementoRaiz = elementoRaiz;
+        this.elementoItem = elementoItem;
+    }
+
+    public Conversor(String rutaArchivo, GestorDatos gestor, String elementoRaiz, String elementoItem) {
+        this.rutaArchivo = rutaArchivo;
+        this.gestor = gestor;
+        this.elementoRaiz = elementoRaiz;
+        this.elementoItem = elementoItem;
     }
 
     public void conversorJSON(){
