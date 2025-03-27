@@ -44,10 +44,6 @@ public class GestorDatos{
        return gestor.size();
     }
 
-    public ArrayList<HashMap<String, String>> getGestor() {
-        return gestor;
-    }
-
 }
    
 
