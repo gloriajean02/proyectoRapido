@@ -4,16 +4,18 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class XML {
+public class xml {
 
-    File fichero;
+    private File fichero;
+    private File carpetaSelecionada;
 
-    public XML (){
+    public xml (){
         fichero = new File("miniproyecto/fichero/coches.xml");
     }
 
-    public XML(String ruta){
+    public xml(String ruta){
         this.fichero = new File(ruta);
+        carpetaSelecionada = fichero.getParentFile();
     }
 
     public File getFichero() {
@@ -22,12 +24,26 @@ public class XML {
 
     public void setFichero(String newRuta) {
         this.fichero = new File(newRuta);
+        this.carpetaSelecionada = fichero.getParentFile();
+    }
+
+    public File getCarpetaSelecionada() {
+        return carpetaSelecionada;
     }
 
     public boolean comprobarExiste(){
         if (fichero.exists()) {
             return true;
         } else return false;
+    }
+
+    public boolean comprobarExtension(){
+        boolean extensionCorrecta = false;
+        if (fichero.getName().endsWith(".xml")) {
+            extensionCorrecta = true;
+        } 
+        
+        return extensionCorrecta;
     }
 
     public boolean comprobarFicheroVacio() {

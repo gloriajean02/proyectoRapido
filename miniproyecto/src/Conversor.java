@@ -8,55 +8,42 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Conversor {
+    private String rutaArchivo;
+    private GestorDatos gestor;
+    private String elementoRaiz;
+    private String elementoItem;
 
-    File fichero;
-    String rutaArchivo;
-    GestorDatos gestor;
-
-    public Conversor (GestorDatos gestor){
-        //QUE CADA UNA CAMBIE A LO QUE NECESITE
-        fichero = new File("miniproyecto/fichero/coches.json");
-        //LA RUTA A DONDE QUEREMOS COPIAR EL ARCHIVO
-        rutaArchivo = "miniproyecto/fichero";
-        //DESDE EL MAIN, CUANDO PROBEMOS, TENDREMOS QUE LLAMAR AL GESTOR QUE ANTES HEMOS LLENADO
+    public Conversor(GestorDatos gestor, String elementoRaiz, String elementoItem) {
+        this.rutaArchivo = "miniproyecto/fichero/datos.xml";
         this.gestor = gestor;
+        this.elementoRaiz = elementoRaiz;
+        this.elementoItem = elementoItem;
     }
 
-    public Conversor(String ruta, String rutaArchivo, GestorDatos gestor){
-        this.fichero = new File(ruta);
+    public Conversor(String rutaArchivo, GestorDatos gestor, String elementoRaiz, String elementoItem) {
         this.rutaArchivo = rutaArchivo;
         this.gestor = gestor;
+        this.elementoRaiz = elementoRaiz;
+        this.elementoItem = elementoItem;
     }
 
-    public void conversorXML(){
+    public void convertirXML() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(rutaArchivo))) {
-            bw.write("Hola, mundo!\n");
-            bw.write("Esta es una prueba de escritura en un archivo usando BufferedWriter.\n");
-            bw.write("Fin del archivo.\n");
+            bw.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+            bw.write("<" + elementoRaiz + ">\n");
+
+            for (HashMap<String, String> elemento : gestor.getGestor()) {
+                bw.write("  <" + elementoItem + ">\n");
+                for (String clave : elemento.keySet()) {
+                    bw.write("    <" + clave + ">" + elemento.get(clave) + "</" + clave + ">\n");
+                }
+                bw.write("  </" + elementoItem + ">\n");
+            }
+
+            bw.write("</" + elementoRaiz + ">\n");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-    public void conversorCSV(){
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(rutaArchivo))) {
-            bw.write("Hola, mundo!\n");
-            bw.write("Esta es una prueba de escritura en un archivo usando BufferedWriter.\n");
-            bw.write("Fin del archivo.\n");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void conversorJSON(){
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(rutaArchivo))) {
-            bw.write("Hola, mundo!\n");
-            bw.write("Esta es una prueba de escritura en un archivo usando BufferedWriter.\n");
-            bw.write("Fin del archivo.\n");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 
 }
