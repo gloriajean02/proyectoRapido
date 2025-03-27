@@ -15,15 +15,13 @@ public class Conversor {
     public Conversor (GestorDatos gestor){
         rutaArchivo = "miniproyecto/fichero";
         this.gestor = gestor;
-        this.elementoRaiz = elementoRaiz;
-        this.elementoItem = elementoItem;
+        
     }
 
     public Conversor(String rutaArchivo, GestorDatos gestor){
         this.rutaArchivo = rutaArchivo;
         this.gestor = gestor;
-        this.elementoRaiz = elementoRaiz;
-        this.elementoItem = elementoItem;
+      
     }
 
     public Conversor(GestorDatos gestor, String elementoRaiz, String elementoItem) {
