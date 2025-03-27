@@ -164,9 +164,12 @@ public class App {
             if(!fichero.getName().endsWith(".csv")){
                 System.out.println("¿En qué ruta quieres alojar el archivo?");
                 String ruta=sc.nextLine();
-                File archivoDestino = new File(ruta);
-                if(archivoDestino.exists()){
-                Conversor conversor = new Conversor(ruta, gestor);
+                System.out.println("¿Qué nombre quieres ponerle al archivo? Escríbelo SIN la extensión");
+                String nombreArchivo = sc.nextLine();
+                String rutaCompleta = ruta+"/"+nombreArchivo+".csv";
+                File rutaDestino = new File(ruta);
+                if(rutaDestino.exists()){
+                Conversor conversor = new Conversor(rutaCompleta, gestor);
                 conversor.conversorCSV();
                 }
                 }else{
@@ -178,9 +181,12 @@ public class App {
             if(!fichero.getName().endsWith(".json")){
                 System.out.println("¿En qué ruta quieres alojar el archivo?");
                 String ruta=sc.nextLine();
-                File archivoDestino = new File(ruta);
-                if(archivoDestino.exists()){
-                Conversor conversor = new Conversor(ruta, gestor);
+                System.out.println("¿Qué nombre quieres ponerle al archivo? Escríbelo SIN la extensión");
+                String nombreArchivo = sc.nextLine();
+                String rutaCompleta = ruta+"/"+nombreArchivo+".json";
+                File rutaDestino = new File(ruta);
+                if(rutaDestino.exists()){
+                Conversor conversor = new Conversor(rutaCompleta, gestor);
                 conversor.conversorJSON();
                 }
             }else{
@@ -192,14 +198,17 @@ public class App {
             if(!fichero.getName().endsWith(".xml")){
                 System.out.println("¿En qué ruta quieres alojar el archivo?");
                 String ruta = sc.nextLine();
-                File archivoDestino = new File(ruta);
-                
-                if(archivoDestino.exists()){
+                System.out.println("¿Qué nombre quieres ponerle al archivo? Escríbelo SIN la extensión");
+                String nombreArchivo = sc.nextLine();
+                String rutaCompleta = ruta+"/"+nombreArchivo+".xml";
+                File rutaDestino = new File(ruta);
+
+                if(rutaDestino.exists()){
                     System.out.println("¿Cómo te gustaría llamar al elemento raíz?");
                     String elementoRaiz = sc.nextLine();
                     System.out.println("¿Cómo te gustaría llamar a los elementos?");
                     String elementoItem = sc.nextLine();
-                    Conversor conversor = new Conversor(ruta, gestor, elementoRaiz, elementoItem);
+                    Conversor conversor = new Conversor(rutaCompleta, gestor, elementoRaiz, elementoItem);
                     conversor.conversorXML();
                 }
             break;
