@@ -6,7 +6,8 @@ import java.util.HashMap;
 
 public class Json {
 
-    File fichero;
+    private File fichero;
+    private File carpetaSeleccionada;
 
     public Json (){
         fichero = new File("miniproyecto/fichero/coches.json");
@@ -14,6 +15,7 @@ public class Json {
 
     public Json(String ruta){
         this.fichero = new File(ruta);
+        carpetaSeleccionada = fichero.getParentFile();
     }
 
     public File getFichero() {
@@ -22,12 +24,39 @@ public class Json {
 
     public void setFichero(String newRuta) {
         this.fichero = new File(newRuta);
+        this.carpetaSeleccionada = fichero.getParentFile();
+    }
+
+    public File getCarpetaSeleccionada() {
+        return carpetaSeleccionada;
+    }
+
+    public String getContenidoCarpeta() {
+        if (carpetaSeleccionada != null && carpetaSeleccionada.isDirectory()) {
+            StringBuilder contenido = new StringBuilder();
+            File[] archivos = carpetaSeleccionada.listFiles();
+            if (archivos != null) {
+                for (File archivo : archivos) {
+                    contenido.append(archivo.getName()).append("\n");
+                }
+            }
+            return contenido.toString();
+        }
+        return "Carpeta vacía o no válida";
     }
 
     public boolean comprobarExiste(){
         if (fichero.exists()) {
             return true;
         } else return false;
+    }
+
+    public boolean comprobarExtension(){
+        boolean extensionCorrecta = false;
+        if (fichero.getName().endsWith(".json")) {
+            extensionCorrecta = true;
+        }
+        return extensionCorrecta;
     }
 
     public boolean comprobarFicheroVacio() {
