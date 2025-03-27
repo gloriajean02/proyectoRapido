@@ -6,6 +6,7 @@ public class App {
 
     public static Scanner sc = new Scanner(System.in);
     public static GestorDatos gestor = new GestorDatos();
+    public static File fichero;
 
     public static void main(String[] args) {
 
@@ -194,7 +195,7 @@ public class App {
             } else {
                 System.out.println("Error: El archivo ya es un XML, no se puede convertir");
             }
-
+            break;
             case 0:
                 System.out.println("Volviendo al menú anterior");
                 break;
