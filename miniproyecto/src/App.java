@@ -173,23 +173,27 @@ public class App {
                 conversor.conversorJSON();
                 }
             }else{
-                System.out.println("Error: El archivo ya es un CSV, no se puede convertir");
+                System.out.println("Error: El archivo ya es un Json, no se puede convertir");
             } 
             break;
 
             case 3:
             if(!fichero.getName().endsWith(".xml")){
                 System.out.println("¿En qué ruta quieres alojar el archivo?");
-                String ruta=sc.nextLine();
+                String ruta = sc.nextLine();
                 File archivoDestino = new File(ruta);
+                
                 if(archivoDestino.exists()){
-                    Conversor conversor = new Conversor(ruta, gestor);
+                    System.out.println("¿Cómo te gustaría llamar al elemento raíz?");
+                    String elementoRaiz = sc.nextLine();
+                    System.out.println("¿Cómo te gustaría llamar a los elementos?");
+                    String elementoItem = sc.nextLine();
+                    Conversor conversor = new Conversor(ruta, gestor, elementoRaiz, elementoItem);
                     conversor.conversorXML();
                 }
-            }else{
-                System.out.println("Error: El archivo ya es un CSV, no se puede convertir");
-            } 
-                break;
+            } else {
+                System.out.println("Error: El archivo ya es un XML, no se puede convertir");
+            }
 
             case 0:
                 System.out.println("Volviendo al menú anterior");
