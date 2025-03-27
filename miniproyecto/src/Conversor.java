@@ -7,8 +7,8 @@ import java.util.Map.Entry;
 
 public class Conversor {
 
-    String rutaArchivo;
-    GestorDatos gestor;
+    private String rutaArchivo;
+    private GestorDatos gestor;
     private String elementoRaiz;
     private String elementoItem;
 
