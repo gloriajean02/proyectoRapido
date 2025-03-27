@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 public class Conversor {
 
@@ -49,10 +50,31 @@ public class Conversor {
     }
 
     public void conversorJSON(){
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(rutaArchivo))) {
-            bw.write("Hola, mundo!\n");
-            bw.write("Esta es una prueba de escritura en un archivo usando BufferedWriter.\n");
-            bw.write("Fin del archivo.\n");
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(rutaArchivo, true))) {
+            bw.write("[\n");
+
+            ArrayList<HashMap<String, String>> listadeHashmaps = gestor.getGestor();
+            for (int i = 0; i < listadeHashmaps.size(); i++) {
+                HashMap<String, String> elemento = listadeHashmaps.get(i);
+
+                bw.write("  {\n");
+                int contadorLineasHashmap = 0;
+
+                for (Entry<String, String> entry : elemento.entrySet()){
+                    bw.write("      \""+entry.getKey()+"\": "+"\""+entry.getValue()+"\"");
+                    if (contadorLineasHashmap < elemento.size()-1) {
+                        bw.write(",");
+                    }
+                    bw.write("\n");
+                    contadorLineasHashmap++;
+                }
+                bw.write("  }");
+                if (i < listadeHashmaps.size()-1) {
+                    bw.write(",");
+                }
+                bw.write("\n");
+            }
+            bw.write("]\n");
         } catch (IOException e) {
             e.printStackTrace();
         }
