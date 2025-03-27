@@ -23,12 +23,14 @@ public class App {
 
             switch (opcion) {
                 case 1:
-                    seleccionarCarpeta();
-                    if (seleccionarCarpeta() != null) {
+                    System.out.println("Introduce la ruta de la carpeta: ");
+                    String ruta = sc.nextLine();
+                    File carpeta = new File(ruta);
+                    if (comprobarCarpeta(carpeta) != null) {
                         System.out.println("Carpeta selecciona con éxito");
-                        System.out.println("Ruta seleccionada: "+seleccionarCarpeta().getAbsolutePath());
-                        System.out.println("Contenido de la carpeta seleccionada: " + contenidoCarpeta());
-                        menu2(seleccionarCarpeta());
+                        System.out.println("Ruta seleccionada: "+carpeta.getAbsolutePath());
+                        System.out.println("Contenido de la carpeta seleccionada: " + contenidoCarpeta(carpeta));
+                        menu2(carpeta);
                     }else{
                         System.out.println("Carpeta no encontrada");
                     }
@@ -119,7 +121,7 @@ public class App {
 
             switch (opcion) {
                 case 1:
-                System.out.println("Contenido de la carpeta seleccionada: " + contenidoCarpeta());
+                System.out.println("Contenido de la carpeta seleccionada: " + contenidoCarpeta(carpetaseleccionada));
                 System.out.println("Qué archivo quieres seleccionar?");
                 String nombrefichero = sc.nextLine();
                 String ruta = carpetaseleccionada.getAbsolutePath() + "/" + nombrefichero;
@@ -175,20 +177,16 @@ public class App {
         System.out.println("║═════════════════════════════════════════║");
     }
 
-    public static File seleccionarCarpeta(){
-        System.out.println("Introduce la ruta de la carpeta: ");
-        String ruta = sc.nextLine();
-        File carpeta = new File(ruta);
-
+    public static File comprobarCarpeta(File carpeta){
         if (carpeta.exists() && carpeta.isDirectory()) {
             return carpeta;
         } else return null;
     }
 
-    public static String contenidoCarpeta() {
-        if (seleccionarCarpeta() != null && seleccionarCarpeta().isDirectory()) {
+    public static String contenidoCarpeta(File carpeta) {
+        if (comprobarCarpeta(carpeta) != null && carpeta.isDirectory()) {
             StringBuilder contenido = new StringBuilder();
-            File[] archivos = seleccionarCarpeta().listFiles();
+            File[] archivos = carpeta.listFiles();
             if (archivos != null) {
                 for (File archivo : archivos) {
                     contenido.append(archivo.getName()).append("\n");
