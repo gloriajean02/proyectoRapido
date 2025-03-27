@@ -198,11 +198,36 @@ public class App {
             opcion = Integer.parseInt(sc.nextLine());
 
             switch (opcion) {
-                case 1 -> System.out.println();
-                case 2 -> System.out.println();
-                case 3 -> System.out.println();
-                case 0 -> System.out.println("Volviendo al menú anterior");
-                default -> System.out.println("Valor incorrecto");
+
+                case 1:
+                Conversor conversorCSV = new Conversor(".csv", gestor);
+                conversorCSV.conversorCSV();
+                System.out.println("Archivo convertido a CSV exitosamente.");
+                break;
+
+            case 2:
+                Conversor conversorJSON = new Conversor(".json", gestor);
+                conversorJSON.conversorJSON();
+                System.out.println("Archivo convertido a JSON exitosamente.");
+                break;
+
+            case 3:
+                Conversor conversorXML = new Conversor(".xml", gestor, "raiz", "item");
+                conversorXML.convertirXML();
+                System.out.println("Archivo convertido a XML exitosamente.");
+                break;
+        
+                case 0:
+
+                    System.out.println("Volviendo al menú anterior");
+                    
+                break;
+                
+                default:
+
+                System.out.println("Valor incorrecto");
+                
+                break;
             }
 
         } while (opcion != 0);
