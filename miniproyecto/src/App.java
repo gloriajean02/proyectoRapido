@@ -25,9 +25,14 @@ public class App {
                     if (seleccionarCarpeta() != null) {
                         System.out.println("Carpeta selecciona con éxito");
                         System.out.println("Ruta seleccionada: "+seleccionarCarpeta().getAbsolutePath());
+                        menu2();
+                    }else{
+                        System.out.println("Carpeta no encontrada");
                     }
                     break;
-            
+                case 0:
+                    System.out.println("Saliendo del programa");
+                    break;
                 default: System.out.println("Valor incorrecto");
                     break;
             }
