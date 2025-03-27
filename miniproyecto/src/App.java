@@ -18,31 +18,31 @@ public class App {
 
             menuPrincipal();
 
-            System.out.println("¿Qué desea realizar?");
+            System.out.println("\n ¿Qué desea realizar?\n");
             opcion = Integer.parseInt(sc.nextLine());
 
             switch (opcion) {
                 case 1:
-                    System.out.println("Introduce la ruta de la carpeta: ");
+                    System.out.println("\nIntroduce la ruta de la carpeta: \n");
                     String ruta = sc.nextLine();
                     File carpeta = new File(ruta);
                     if (comprobarCarpeta(carpeta) != null) {
-                        System.out.println("Carpeta selecciona con éxito");
-                        System.out.println("Ruta seleccionada: "+carpeta.getAbsolutePath());
-                        System.out.println("Contenido de la carpeta seleccionada: " + contenidoCarpeta(carpeta));
+                        System.out.println("Carpeta selecciona con éxito\n");
+                        System.out.println("\nRuta seleccionada: "+carpeta.getAbsolutePath());
+                        System.out.println("Contenido de la carpeta seleccionada: \n\n" + contenidoCarpeta(carpeta));
                         menu2(carpeta);
                     }else{
                         System.out.println("Carpeta no encontrada");
                     }
                     break;
-                case 2:
+                case 0:
                     System.out.println("Saliendo del programa");
                     break;
                 default: System.out.println("Valor incorrecto");
                     break;
             }
 
-        } while (opcion != 2);
+        } while (opcion != 0);
         
 
         
@@ -100,7 +100,7 @@ public class App {
         System.out.println("║              MENÚ PRINCIPAL             ║");
         System.out.println("║═════════════════════════════════════════║");
         System.out.println("║ 1 - Seleccionar carpeta                 ║");
-        System.out.println("║ 2 - Salir                               ║");
+        System.out.println("║ 0 - Salir                               ║");
         System.out.println("║═════════════════════════════════════════║");
     }
 
@@ -113,7 +113,7 @@ public class App {
             System.out.println("║              MENÚ PRINCIPAL             ║");
             System.out.println("║═════════════════════════════════════════║");
             System.out.println("║ 1 - Lectura de fichero                  ║");
-            System.out.println("║ 2 - Salir                               ║");
+            System.out.println("║ 0 - Salir                               ║");
             System.out.println("║═════════════════════════════════════════║");
 
             System.out.println("¿Qué desea realizar?");
@@ -127,16 +127,19 @@ public class App {
                 String ruta = carpetaseleccionada.getAbsolutePath() + "/" + nombrefichero;
                 File fichero = new File(ruta);
                 if(fichero.exists()){
-                    System.out.println("Fichero correcto");
+                    
                     if(comprobarExtension(fichero).equals(".csv")){
                         CSV csv = new CSV (ruta);
                         csv.escribirFichero(gestor);
+                        System.out.println("Fichero correcto");
                     }else if(comprobarExtension(fichero).equals(".json")){
                         Json json = new Json (ruta);
                         json.escribirFichero(gestor);
+                        System.out.println("Fichero correcto");
                     }else if(comprobarExtension(fichero).equals(".xml")){
                         xml XML = new xml (ruta);
                         XML.escribirFichero(gestor);
+                        System.out.println("Fichero correcto");
                     }else{
                         System.out.println("Error");
                     }
@@ -145,7 +148,7 @@ public class App {
                 }
                     
                     break;
-                case 2:
+                case 0:
                     System.out.println("Saliendo del programa");
                     break;
                 default: System.out.println("Valor incorrecto");
