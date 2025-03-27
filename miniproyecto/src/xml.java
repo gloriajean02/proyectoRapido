@@ -51,15 +51,6 @@ public class xml {
         } else return false;
     }
 
-    public boolean comprobarExtension(){
-        boolean extensionCorrecta = false;
-        if (fichero.getName().endsWith(".xml")) {
-            extensionCorrecta = true;
-        } 
-        
-        return extensionCorrecta;
-    }
-
     public boolean comprobarFicheroVacio() {
         boolean vacio = false;
         try (BufferedReader br = new BufferedReader(new FileReader(fichero))) {

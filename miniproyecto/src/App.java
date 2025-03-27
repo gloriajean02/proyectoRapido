@@ -1,6 +1,7 @@
 import java.io.File;
 import java.util.Scanner;
 
+
 public class App {
 
     public static Scanner sc = new Scanner(System.in);
@@ -25,6 +26,7 @@ public class App {
                     if (seleccionarCarpeta() != null) {
                         System.out.println("Carpeta selecciona con éxito");
                         System.out.println("Ruta seleccionada: "+seleccionarCarpeta().getAbsolutePath());
+                        System.out.println("Contenido de la carpeta seleccionada: " + contenidoCarpeta());
                         menu2();
                     }else{
                         System.out.println("Carpeta no encontrada");
@@ -74,7 +76,7 @@ public class App {
         System.out.println();
         System.out.println("Ruta de la carpeta seleccionada: " + csv.getCarpetaSeleccionada());
         System.out.println();
-        System.out.println("Contenido de la carpeta seleccionada:\n" + csv.getContenidoCarpeta());
+        System.out.println("Contenido de la carpeta seleccionada:\n" + getContenidoCarpeta());
         System.out.println("Fichero seleccionado: " + csv.getFichero().getName());
         System.out.println();
         
@@ -99,14 +101,45 @@ public class App {
         System.out.println("║═════════════════════════════════════════║");
     }
 
-    public static void menu2(){
-        System.out.println("╔═════════════════════════════════════════╗");
-        System.out.println("║              MENÚ PRINCIPAL             ║");
-        System.out.println("║═════════════════════════════════════════║");
-        System.out.println("║ 1 - Lectura de fichero                  ║");
-        System.out.println("║ 2 - Salir                               ║");
-        System.out.println("║═════════════════════════════════════════║");
+    public static void menu2(File carpetaseleccionada){
+    
+        int opcion = 0;
+        do {
+
+            System.out.println("╔═════════════════════════════════════════╗");
+            System.out.println("║              MENÚ PRINCIPAL             ║");
+            System.out.println("║═════════════════════════════════════════║");
+            System.out.println("║ 1 - Lectura de fichero                  ║");
+            System.out.println("║ 2 - Salir                               ║");
+            System.out.println("║═════════════════════════════════════════║");
+
+            System.out.println("¿Qué desea realizar?");
+            opcion = Integer.parseInt(sc.nextLine());
+
+            switch (opcion) {
+                case 1:
+                System.out.println("Contenido de la carpeta seleccionada: " + contenidoCarpeta());
+                System.out.println("Qué archivo quieres seleccionar?");
+                String nombrefichero = sc.nextLine();
+                String ruta = carpetaseleccionada.getAbsolutePath() + "/" + nombrefichero;
+                File fichero = new File(ruta);
+                if(fichero.exists()){
+                    System.out.println("Fichero correcto");
+                }else{
+                    System.out.println("El fichero no ha sido encontrado");
+                }
+                    
+                    break;
+                case 0:
+                    System.out.println("Saliendo del programa");
+                    break;
+                default: System.out.println("Valor incorrecto");
+                    break;
+            }
+
+        } while (opcion != 0);
     }
+
 
     public static void menu3(){
         System.out.println("╔═════════════════════════════════════════╗");
@@ -139,5 +172,32 @@ public class App {
         } else return null;
     }
 
+    public static String contenidoCarpeta() {
+        if (seleccionarCarpeta() != null && seleccionarCarpeta().isDirectory()) {
+            StringBuilder contenido = new StringBuilder();
+            File[] archivos = seleccionarCarpeta().listFiles();
+            if (archivos != null) {
+                for (File archivo : archivos) {
+                    contenido.append(archivo.getName()).append("\n");
+                }
+            }
+            return contenido.toString();
+        }
+        return "Carpeta vacía o no válida";
+    }
+
+    public static String comprobarExtension(File fichero){
+        
+        if (fichero.getName().endsWith(".csv")) {
+            return ".csv";
+        }else if(fichero.getName().endsWith(".json")){
+            return ".json";
+        }else if(fichero.getName().endsWith(".xml")){
+            return ".xml";
+        }else{
+            return "Tipo de archivo no válido";
+        }
+        
+    }
 
 }

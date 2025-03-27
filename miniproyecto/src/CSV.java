@@ -33,33 +33,9 @@ public class CSV {
         return carpetaSeleccionada;
     }
 
-    /*Método para obtener el contenido de la carpeta seleccionada */
-    public String getContenidoCarpeta() {
-        if (carpetaSeleccionada != null && carpetaSeleccionada.isDirectory()) {
-            StringBuilder contenido = new StringBuilder();
-            File[] archivos = carpetaSeleccionada.listFiles();
-            if (archivos != null) {
-                for (File archivo : archivos) {
-                    contenido.append(archivo.getName()).append("\n");
-                }
-            }
-            return contenido.toString();
-        }
-        return "Carpeta vacía o no válida";
-    }
-
     /*Método para comprobar si el archivo CSV existe */
     public boolean comprobarExiste() {
         return fichero.exists();
-    }
-
-    public boolean comprobarExtension(){
-        boolean extensionCorrecta = false;
-        if (fichero.getName().endsWith(".csv")) {
-            extensionCorrecta = true;
-        } 
-        
-        return extensionCorrecta;
     }
 
     /*Método para comprobar si el archivo CSV está vacío */

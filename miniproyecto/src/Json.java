@@ -51,14 +51,6 @@ public class Json {
         } else return false;
     }
 
-    public boolean comprobarExtension(){
-        boolean extensionCorrecta = false;
-        if (fichero.getName().endsWith(".json")) {
-            extensionCorrecta = true;
-        }
-        return extensionCorrecta;
-    }
-
     public boolean comprobarFicheroVacio() {
         boolean vacio = false;
         try (BufferedReader br = new BufferedReader(new FileReader(fichero))) {
