@@ -13,7 +13,6 @@ public class Conversor {
 
     // Constructor que inicializa con valores predeterminados
     public Conversor(GestorDatos gestor) {
-        fichero = new File("miniproyecto/fichero/coches.json"); // Ruta del archivo de entrada
         rutaArchivo = "miniproyecto/fichero/coches.csv"; // Ruta del archivo de salida
         this.gestor = gestor; // Gestor con los datos que se van a convertir
     }
@@ -29,8 +28,8 @@ public class Conversor {
     public void conversorCSV() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(rutaArchivo))) {
 
-            if (gestor != null && gestor.getElementos().size() > 0) {/*Comprobamos que el gestor no esté vacío */
-                HashMap<String, String> primerElemento = gestor.getElementos().get(0);/*Obtenemos el primer elemento del gestor que hay en HashMap */
+            if (gestor != null && gestor.getGestor().size() > 0) {/*Comprobamos que el gestor no esté vacío */
+                HashMap<String, String> primerElemento = gestor.getGestor().get(0);/*Obtenemos el primer elemento del gestor que hay en HashMap */
                 
                 List<String> claves = List.copyOf(primerElemento.keySet());/*Usamos el método keyset() para obtener todas las claves, las pasamos a una lista para poer acceder por índice */
                 for (int i = 0; i < claves.size(); i++) {
@@ -42,7 +41,7 @@ public class Conversor {
                 bw.newLine();
 
             
-                List<HashMap<String, String>> elementos = gestor.getElementos();/*Extraemos todos los elementos del gestior que son HashMap<String, String> */
+                List<HashMap<String, String>> elementos = gestor.getGestor();/*Extraemos todos los elementos del gestior que son HashMap<String, String> */
                 for (int i = 0; i < elementos.size(); i++) {/*Recorremos la lista, obtenemos los valores de cada uno con elemento.values(). Los valores se copian en una lista para poder acceder a ellos de manera ordenada */
                     HashMap<String, String> elemento = elementos.get(i);
                     List<String> valores = List.copyOf(elemento.values());
