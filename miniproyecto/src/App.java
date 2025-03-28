@@ -139,7 +139,7 @@ public class App {
                     String nombrefichero = sc.nextLine();
                     String ruta = carpetaseleccionada.getAbsolutePath() + "/" + nombrefichero;
                     File nuevoFichero = new File(ruta);
-                    if (!fichero.exists() || comprobarExtension(fichero).equals("\nTipo de archivo no válido\n\n")) {
+                    if (!nuevoFichero.exists() || comprobarExtension(nuevoFichero).equals("\nTipo de archivo no válido\n\n")) {
                         System.out.println("\nError: No se ha seleccionado un archivo válido para convertir.\n\n");
                     }else{
                     lecturaFichero(nuevoFichero, ruta);
