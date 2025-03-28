@@ -12,20 +12,30 @@ public class App {
     public static Scanner sc = new Scanner(System.in);
     public static GestorDatos gestor = new GestorDatos();
 
+    //COLORES
+    /** Código ANSI para restablecer el color de la consola. */
+    public static final String RESET = "\u001B[0m";
+    /** Código ANSI para texto en rojo. */
+    public static final String RED = "\u001B[31m";
+    /** Código ANSI para texto en verde. */
+    public static final String GREEN = "\u001B[32m";
+    /** Código ANSI para texto en amarillo. */
+    public static final String YELLOW = "\u001B[33m";
+    /** Código ANSI para texto en azul. */
+    public static final String BLUE = "\u001B[34m";
+    /** Código ANSI para texto en violeta. */
+    public static final String PURPLE = "\u001B[35m";
+    /** Código ANSI para texto en cian. */
+    public static final String CYAN = "\u001B[36m";
+    /** Código ANSI para texto en blanco. */
+    public static final String WHITE = "\u001B[37m";
 
     public static void main(String[] args) {
 
         int opcion = 0;
         do {
-
-            System.out.println("╔═════════════════════════════════════════╗");
-            System.out.println("║       BIENVENIDO A ILOVECONVERSOR       ║");
-            System.out.println("╚═════════════════════════════════════════╝");
-
-            menuPrincipal();
-            
-
-            System.out.println( "\n¿Qué desea realizar?\n");
+            System.out.println(bienvenida());
+            System.out.println(menuPrincipal());
             opcion = Integer.parseInt(sc.nextLine());
 
             switch (opcion) {
@@ -35,34 +45,43 @@ public class App {
                     File carpeta = new File(ruta);
                     if (carpeta.exists() && carpeta.isDirectory()) {
                         if (carpeta.listFiles() == null || carpeta.listFiles().length == 0) {
-                            System.out.println("\nLa carpeta está vacía\n\n");
+                            System.out.println(RED+"\nLa carpeta está vacía\n\n"+RESET);
                         } else {
-                            System.out.println("\nCarpeta seleccionada con éxito\n");
-                            System.out.println("\nRuta seleccionada: \n\n" + carpeta.getAbsolutePath());
-                            System.out.println("\n\nContenido de la carpeta seleccionada: \n\n" + contenidoCarpeta(carpeta) + "\n");
+                            System.out.println(GREEN+"\nCarpeta seleccionada con éxito\n"+RESET);
+                            System.out.println(BLUE+"\nRuta seleccionada: \n\n"+RESET + carpeta.getAbsolutePath());
+                            System.out.println(BLUE+"\n\nContenido de la carpeta seleccionada: \n\n"+RESET + contenidoCarpeta(carpeta) + "\n");
                             menu2(carpeta);
                         }
                     } else {
-                        System.out.println("\nCarpeta no encontrada o no válida\n");
+                        System.out.println(RED+"\nCarpeta no encontrada o no válida\n"+RESET);
                     }
                     break;
                 case 0:
-                    System.out.println("\nSaliendo del programa\n");
+                    System.out.println(BLUE+"\nSaliendo del programa\n"+RESET);
                     break;
-                default: System.out.println("\nValor incorrecto\n\n");
+                default: System.out.println(RED+"\nValor incorrecto\n\n"+RESET);
                     break;
             }
 
         } while (opcion != 0);
     }
 
-    public static void menuPrincipal(){
-        System.out.println("╔═════════════════════════════════════════╗");
-        System.out.println("║             ¿QUÉ DESEA HACER?           ║");
-        System.out.println("║═════════════════════════════════════════║");
-        System.out.println("║ 1 - Seleccionar carpeta                 ║");
-        System.out.println("║ 0 - Salir                               ║");
-        System.out.println("╚═════════════════════════════════════════╝");
+    public static String bienvenida(){
+        return "\n"
+              +PURPLE+"                     ╔═════════════════════════════════════════════════╗\n"
+              +PURPLE+"                     ║"+BLUE+"           BIENVENIDO A ILOVECONVERSOR           "+PURPLE+"║\n"
+              +PURPLE+"                     ║"+BLUE+"                       ---                       "+PURPLE+"║\n"
+              +PURPLE+"                     ║"+RESET+"    La app definitiva para convertir archivos    "+PURPLE+"║\n"
+              +PURPLE+"                     ╚═════════════════════════════════════════════════╝\n"+RESET;
+    }
+    
+    public static String menuPrincipal(){
+        return PURPLE+"╔════════════════════════════════════════════════════════════════════════════════════════╗\n"
+              +PURPLE+"║"+BLUE+"            Para empezar, selecciona la carpeta donde se encuentra tu archivo           "+PURPLE+"║\n"
+              +PURPLE+"║════════════════════════════════════════════════════════════════════════════════════════║\n"
+              +PURPLE+"║"+RESET+"           [1] Seleccionar carpeta                                                      "+PURPLE+"║\n"
+              +PURPLE+"║"+RESET+"           [0] Salir                                                                    "+PURPLE+"║\n"
+              +PURPLE+"╚════════════════════════════════════════════════════════════════════════════════════════╝\n"+RESET;
     }
 
     public static void menu2(File carpetaseleccionada){
@@ -278,6 +297,8 @@ public class App {
     }
 
     public static void lecturaFichero(File fichero, String ruta){
+        gestor.getGestor().clear();
+        
         if(fichero.exists()){                   
             if(comprobarExtension(fichero).equals(".csv")){
                 CSV csv = new CSV (ruta);

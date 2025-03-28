@@ -99,7 +99,7 @@ public class Conversor {
     public void conversorCSV() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(rutaArchivo))) {
 
-            if (gestor != null && gestor.getGestor().size() > 0) {/*Comprobamos que el gestor no esté vacío */
+            if (gestor != null && !gestor.getGestor().isEmpty()) {/*Comprobamos que el gestor no esté vacío */
                 HashMap<String, String> primerElemento = gestor.getGestor().get(0);/*Obtenemos el primer elemento del gestor que hay en HashMap */
                 
                 List<String> claves = List.copyOf(primerElemento.keySet());/*Usamos el método keyset() para obtener todas las claves, las pasamos a una lista para poer acceder por índice */
