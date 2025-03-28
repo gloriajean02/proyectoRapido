@@ -36,9 +36,11 @@ public class App {
 
             switch (opcion) {
                 case 1:
+                File carpeta; 
+                do {
                     System.out.print("\nIntroduce la ruta de la carpeta: ");
                     String ruta = sc.nextLine();
-                    File carpeta = new File(ruta);
+                    carpeta = new File(ruta);
                     if (carpeta.exists() && carpeta.isDirectory()) {
                         if (carpeta.listFiles() == null || carpeta.listFiles().length == 0) {
                             System.out.println(RED+"\nLa carpeta está vacía\n\n"+RESET);
@@ -50,6 +52,7 @@ public class App {
                     } else {
                         System.out.println(RED+"\nCarpeta no encontrada o no válida\n"+RESET);
                     }
+                } while (carpeta == null || !carpeta.isDirectory() || carpeta.listFiles() == null || carpeta.listFiles().length == 0);
                     break;
                 case 0:
                     System.out.println(BLUE+"\nSaliendo del programa\n"+RESET);
@@ -100,25 +103,29 @@ public class App {
 
             switch (opcion) {
                 case 1: 
+                File fichero;
+                do{
                     System.out.println(BLUE+"\n¿Qué archivo quieres seleccionar?\n"+RESET);
                     String nombrefichero = sc.nextLine();
                     String ruta = carpetaseleccionada.getAbsolutePath() + "/" + nombrefichero;
-                    File fichero = new File(ruta);
+                    fichero = new File(ruta);
                     if (!fichero.exists() || comprobarExtension(fichero).equals("\nTipo de archivo no válido\n\n")) {
                         System.out.println(RED+"\nError: No se ha seleccionado un archivo válido para convertir.\n\n"+RESET);
                     }else{
                     lecturaFichero(fichero, ruta);
                     menu3(carpetaseleccionada, fichero);
-                }
-                break;
+                  }
+                }while (!fichero.exists() || comprobarExtension(fichero).equals("\nTipo de archivo no válido\n\n"));
+                    break;
             
                 case 0:
                     System.out.println(GREEN+"\nVolviendo al menú anterior...\n\n"+RESET);
-                break;
+                    break;
 
                 default:
                     System.out.println(RED+"\nValor incorrecto\n\n"+RESET);
-                break;
+                    menu2(carpetaseleccionada);
+                    break;
             }
 
      
@@ -144,18 +151,8 @@ public class App {
                 break;
 
                 case 2:
-                    System.out.println(BLUE+"\nContenido de la carpeta seleccionada: \n\n"+RESET + contenidoCarpeta(carpetaseleccionada));
-                    System.out.println(BLUE+"\nQué archivo quieres seleccionar?\n"+RESET);
-                    String nombrefichero = sc.nextLine();
-                    String ruta = carpetaseleccionada.getAbsolutePath() + "/" + nombrefichero;
-                    File nuevoFichero = new File(ruta);
-                    if (!fichero.exists() || comprobarExtension(fichero).equals("\nTipo de archivo no válido\n\n")) {
-                        System.out.println(RED+"\nError: No se ha seleccionado un archivo válido para convertir.\n\n"+RESET);
-                    }else{
-                        lecturaFichero(nuevoFichero, ruta);
-                        menu3(carpetaseleccionada, nuevoFichero);
-                    }
-                break;
+                    menu2(carpetaseleccionada);
+                return;
             
                 case 0:
                     System.out.println(GREEN+"\nSaliendo...\n\n"+RESET);
@@ -163,6 +160,7 @@ public class App {
 
                 default:
                     System.out.println(RED+"\nValor incorrecto\n\n"+RESET);
+                    menu3(carpetaseleccionada, fichero);
                 break;
             }
 
@@ -185,22 +183,27 @@ public class App {
                     } else {
                         System.out.println(RED+"\nError: El archivo ya es un CSV, no se puede convertir\n\n"+RESET);
                     }
+                    menu4(fichero);
                     break;
-    
+                
                 case 2:
                     if (!fichero.getName().endsWith(".json")) {
                         convertirFichero(fichero, ".json");
                     } else {
                         System.out.println(RED+"\nError: El archivo ya es un JSON, no se puede convertir\n\n"+RESET);
                     }
+                    menu4(fichero);
+                
                     break;
-    
-                case 3:
+
+                case 3:    
+                
                     if (!fichero.getName().endsWith(".xml")) {
                         convertirFichero(fichero, ".xml");
                     } else {
                         System.out.println(RED+"\nError: El archivo ya es un XML, no se puede convertir\n\n"+RESET);
                     }
+                    menu4(fichero);
                     break;
     
                 case 0:
@@ -209,6 +212,7 @@ public class App {
     
                 default:
                     System.out.println(RED+"\nValor incorrecto\n\n"+RESET);
+                    menu4(fichero);
                     break;
             }
         
@@ -221,10 +225,10 @@ public class App {
         String nombreArchivo = sc.nextLine();
         String rutaCompleta = ruta + "/" + nombreArchivo + extension;
         File rutaDestino = new File(ruta);
-        
+ 
         if (rutaDestino.exists()) {
             if (extension.equals(".xml")) {
-                System.out.println(BLUE+"\n\n¿Cómo te gustaría llamar al elemento raíz del xml?"+RESET+" Este abrirá y cerrará tu XML\n");
+                System.out.println(BLUE+"\n¿Cómo te gustaría llamar al elemento raíz del xml?"+RESET+" Este abrirá y cerrará tu XML\n");
                 String elementoRaiz = sc.nextLine();
                 System.out.println(BLUE+"\n¿Cómo te gustaría llamar a los elementos?"+RESET+" Este abrirá y cerrará cada elemento del XML\n");
                 String elementoItem = sc.nextLine();
@@ -242,6 +246,7 @@ public class App {
         } else {
             System.out.println(RED+"\nError: La ruta especificada no es válida.\n\n"+RESET);
         }
+        
     }
 
     public static File comprobarCarpeta(File carpeta){
