@@ -161,11 +161,10 @@ public class App {
 
     }
 
-    public static void menu4(File fichero){
+    public static void menu4(File fichero) {
 
         int opcion = 0;
         do {
-            
             System.out.println("╔═════════════════════════════════════════╗");
             System.out.println("║             ¿QUÉ DESEA HACER?           ║");
             System.out.println("║═════════════════════════════════════════║");
@@ -174,87 +173,74 @@ public class App {
             System.out.println("║ 3 - .XML                                ║");
             System.out.println("║ 0 - Salir                               ║");
             System.out.println("╚═════════════════════════════════════════╝");
-
+    
             System.out.println("\n¿Qué desea realizar?\n");
             opcion = Integer.parseInt(sc.nextLine());
-
+    
             switch (opcion) {
-
-            case 1:
-            if(!fichero.getName().endsWith(".csv")){
-                System.out.println("\n¿En qué ruta quieres alojar el archivo?\n");
-                String ruta=sc.nextLine();
-                System.out.println("\n¿Qué nombre quieres ponerle al archivo? Escríbelo SIN la extensión\n");
-                String nombreArchivo = sc.nextLine();
-                String rutaCompleta = ruta+"/"+nombreArchivo+".csv";
-                File rutaDestino = new File(ruta);
-                if(rutaDestino.exists()){
-                Conversor conversor = new Conversor(rutaCompleta, gestor);
-                conversor.conversorCSV();
-                System.out.println("\nArchivo convertido a CSV con éxito.\n\n");
-                } else {
-                    System.out.println("\nError: La ruta especificada no es válida.\n\n");
-                }
-            }else{
-                System.out.println("\nError: El archivo ya es un CSV, no se puede convertir\n\n");
-            }               
-            break;
-
-            case 2:
-            if(!fichero.getName().endsWith(".json")){
-                System.out.println("\n¿En qué ruta quieres alojar el archivo?\n");
-                String ruta=sc.nextLine();
-                System.out.println("\n¿Qué nombre quieres ponerle al archivo? Escríbelo SIN la extensión\n");
-                String nombreArchivo = sc.nextLine();
-                String rutaCompleta = ruta+"/"+nombreArchivo+".json";
-                File rutaDestino = new File(ruta);
-                if(rutaDestino.exists()){
-                Conversor conversor = new Conversor(rutaCompleta, gestor);
-                conversor.conversorJSON();
-                System.out.println("\nArchivo convertido a Json con éxito.\n\n");
-                } else {
-                    System.out.println("\nError: La ruta especificada no es válida.\n\n");
-                }
-
-            }else{
-                System.out.println("\nError: El archivo ya es un Json, no se puede convertir\n\n");
-            } 
-            break;
-
-            case 3:
-            if(!fichero.getName().endsWith(".xml")){
-                System.out.println("\n¿En qué ruta quieres alojar el archivo?\n");
-                String ruta = sc.nextLine();
-                System.out.println("\n¿Qué nombre quieres ponerle al archivo? Escríbelo SIN la extensión\n");
-                String nombreArchivo = sc.nextLine();
-                String rutaCompleta = ruta+"/"+nombreArchivo+".xml";
-                File rutaDestino = new File(ruta);
-
-                if(rutaDestino.exists()){
-                    System.out.println("\n\n¿Cómo te gustaría llamar al elemento raíz?\n");
-                    String elementoRaiz = sc.nextLine();
-                    System.out.println("\n¿Cómo te gustaría llamar a los elementos?\n");
-                    String elementoItem = sc.nextLine();
-                    Conversor conversor = new Conversor(rutaCompleta, gestor, elementoRaiz, elementoItem);
-                    conversor.conversorXML();
-                    System.out.println("\nArchivo convertido a XML con éxito.\n\n");
-                }else {
-                    System.out.println("\nError: La ruta especificada no es válida.\n\n");
-                }   
-            } else {
-                System.out.println("\nError: El archivo ya es un XML, no se puede convertir\n\n");
-            }
-            break;
-            case 0:
-                System.out.println("\nVolviendo al menú anterior\n\n");
-                break;
+                case 1:
+                    if (!fichero.getName().endsWith(".csv")) {
+                        convertirFichero(fichero, ".csv");
+                    } else {
+                        System.out.println("\nError: El archivo ya es un CSV, no se puede convertir\n\n");
+                    }
+                    break;
+    
+                case 2:
+                    if (!fichero.getName().endsWith(".json")) {
+                        convertirFichero(fichero, ".json");
+                    } else {
+                        System.out.println("\nError: El archivo ya es un JSON, no se puede convertir\n\n");
+                    }
+                    break;
+    
+                case 3:
+                    if (!fichero.getName().endsWith(".xml")) {
+                        convertirFichero(fichero, ".xml");
+                    } else {
+                        System.out.println("\nError: El archivo ya es un XML, no se puede convertir\n\n");
+                    }
+                    break;
+    
+                case 0:
+                    System.out.println("\nVolviendo al menú anterior\n\n");
+                    break;
+    
                 default:
-                System.out.println("\nValor incorrecto\n\n");
-                break;
+                    System.out.println("\nValor incorrecto\n\n");
+                    break;
             }
-
         } while (opcion != 0);
-
+    }
+    
+    private static void convertirFichero(File fichero, String extension) {
+        System.out.println("\n¿En qué ruta quieres alojar el archivo?\n");
+        String ruta = sc.nextLine();
+        System.out.println("\n¿Qué nombre quieres ponerle al archivo? Escríbelo SIN la extensión\n");
+        String nombreArchivo = sc.nextLine();
+        String rutaCompleta = ruta + "/" + nombreArchivo + extension;
+        File rutaDestino = new File(ruta);
+    
+        if (rutaDestino.exists()) {
+            if (extension.equals(".xml")) {
+                System.out.println("\n\n¿Cómo te gustaría llamar al elemento raíz?\n");
+                String elementoRaiz = sc.nextLine();
+                System.out.println("\n¿Cómo te gustaría llamar a los elementos?\n");
+                String elementoItem = sc.nextLine();
+                Conversor conversor = new Conversor(rutaCompleta, gestor, elementoRaiz, elementoItem);
+                conversor.conversorXML();
+            } else {
+                Conversor conversor = new Conversor(rutaCompleta, gestor);
+                if (extension.equals(".csv")) {
+                    conversor.conversorCSV();
+                } else if (extension.equals(".json")) {
+                    conversor.conversorJSON();
+                }
+            }
+            System.out.println("\nArchivo convertido a " + extension.toUpperCase() + " con éxito.\n\n");
+        } else {
+            System.out.println("\nError: La ruta especificada no es válida.\n\n");
+        }
     }
 
     public static File comprobarCarpeta(File carpeta){
