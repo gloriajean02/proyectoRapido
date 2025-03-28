@@ -66,12 +66,12 @@ public class xml {
         return vacio;
     }
 
-   public void escribirFichero(GestorDatos gestor) {
+    public void escribirFichero(GestorDatos gestor) {
     try (BufferedReader br = new BufferedReader(new FileReader(fichero))) {
         String linea;
         br.readLine(); 
         boolean dentroDeElemento = false;
-        HashMap<String, String> nuevoElemento = new HashMap<>();
+        HashMap<String, String> nuevoElemento = null;
 
         while ((linea = br.readLine()) != null) {
             linea = linea.trim();
@@ -81,13 +81,14 @@ public class xml {
                 nuevoElemento = new HashMap<>();
             }
 
-            if (linea.startsWith("</")) {
+            if (linea.startsWith("</") && nuevoElemento != null && !nuevoElemento.isEmpty())  {
                 dentroDeElemento = false;
                 gestor.insertarElemento(nuevoElemento);
+                nuevoElemento = null;
                 
             }
 
-            if (dentroDeElemento) {
+            if (dentroDeElemento && nuevoElemento != null) {
                 linea = linea.replace("<", "").replace(">", " ").replace("/", " ");
                 String[] palabras = linea.split(" ");
                 
@@ -96,7 +97,6 @@ public class xml {
                     String valor = palabras[1].trim();
 
                     nuevoElemento.put(clave, valor);
-
 
                 }
             }

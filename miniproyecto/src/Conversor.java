@@ -22,13 +22,11 @@ public class Conversor {
     public Conversor (GestorDatos gestor){
         rutaArchivo = "miniproyecto/fichero";
         this.gestor = gestor;
-        
     }
 
     public Conversor(String rutaArchivo, GestorDatos gestor){
         this.rutaArchivo = rutaArchivo;
         this.gestor = gestor;
-      
     }
 
     public Conversor(GestorDatos gestor, String elementoRaiz, String elementoItem) {
