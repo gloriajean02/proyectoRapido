@@ -20,15 +20,11 @@ public class App {
     /** Código ANSI para texto en verde. */
     public static final String GREEN = "\u001B[32m";
     /** Código ANSI para texto en amarillo. */
-    public static final String YELLOW = "\u001B[33m";
-    /** Código ANSI para texto en azul. */
     public static final String BLUE = "\u001B[34m";
     /** Código ANSI para texto en violeta. */
     public static final String PURPLE = "\u001B[35m";
     /** Código ANSI para texto en cian. */
-    public static final String CYAN = "\u001B[36m";
-    /** Código ANSI para texto en blanco. */
-    public static final String WHITE = "\u001B[37m";
+
 
     public static void main(String[] args) {
 
@@ -49,7 +45,6 @@ public class App {
                         } else {
                             System.out.println(GREEN+"\nCarpeta seleccionada con éxito\n"+RESET);
                             System.out.println(BLUE+"\nRuta seleccionada: \n\n"+RESET + carpeta.getAbsolutePath());
-                            System.out.println(BLUE+"\n\nContenido de la carpeta seleccionada: \n\n"+RESET + contenidoCarpeta(carpeta) + "\n");
                             menu2(carpeta);
                         }
                     } else {
@@ -84,30 +79,33 @@ public class App {
               +PURPLE+"╚════════════════════════════════════════════════════════════════════════════════════════╝\n"+RESET;
     }
 
+    public static String menuFormatos(){
+        return PURPLE+"╔═════════════════════════════════════════╗\n"+
+                "║"+BLUE+"      Elige el formato de conversión     "+PURPLE+"║\n"+
+                "║═════════════════════════════════════════║\n"+
+                "║"+RESET+" 1 - .CSV                                "+PURPLE+"║\n"+
+                "║"+RESET+" 2 - .JSON                               "+PURPLE+"║\n"+
+                "║"+RESET+" 3 - .XML                                "+PURPLE+"║\n"+
+                "║"+RESET+" 0 - Salir                               "+PURPLE+"║\n"+
+                "╚═════════════════════════════════════════╝\n"+RESET;
+    }
+
     public static void menu2(File carpetaseleccionada){
     
         int opcion = 0;
-        do {
-
-            System.out.println("╔═════════════════════════════════════════╗");
-            System.out.println("║             ¿QUÉ DESEA HACER?           ║");
-            System.out.println("║═════════════════════════════════════════║");
-            System.out.println("║ 1 - Lectura de fichero                  ║");
-            System.out.println("║ 0 - Salir                               ║");
-            System.out.println("╚═════════════════════════════════════════╝");
-
-            System.out.println("\n¿Qué desea realizar?\n");
+    
+            System.out.println(BLUE+"\nContenido de la carpeta seleccionada: \n\n"+RESET + contenidoCarpeta(carpetaseleccionada));
+            System.out.println(GREEN+"Pulse [1] para convertir uno de estos ficheros.\n"+PURPLE+"Pulse [0] para salir.\n"+RESET);
             opcion = Integer.parseInt(sc.nextLine());
 
             switch (opcion) {
                 case 1: 
-                    System.out.println("\nContenido de la carpeta seleccionada: \n\n" + contenidoCarpeta(carpetaseleccionada));
-                    System.out.println("\nQué archivo quieres seleccionar?\n");
+                    System.out.println(BLUE+"\n¿Qué archivo quieres seleccionar?\n"+RESET);
                     String nombrefichero = sc.nextLine();
                     String ruta = carpetaseleccionada.getAbsolutePath() + "/" + nombrefichero;
                     File fichero = new File(ruta);
                     if (!fichero.exists() || comprobarExtension(fichero).equals("\nTipo de archivo no válido\n\n")) {
-                        System.out.println("\nError: No se ha seleccionado un archivo válido para convertir.\n\n");
+                        System.out.println(RED+"\nError: No se ha seleccionado un archivo válido para convertir.\n\n"+RESET);
                     }else{
                     lecturaFichero(fichero, ruta);
                     menu3(carpetaseleccionada, fichero);
@@ -115,32 +113,25 @@ public class App {
                 break;
             
                 case 0:
-                    System.out.println("\nVolviendo al menú anterior\n\n");
+                    System.out.println(GREEN+"\nVolviendo al menú anterior...\n\n"+RESET);
                 break;
 
                 default:
-                    System.out.println("\nValor incorrecto\n\n");
+                    System.out.println(RED+"\nValor incorrecto\n\n"+RESET);
                 break;
             }
 
-        } while (opcion != 0);
+     
     }
 
 
     public static void menu3(File carpetaseleccionada, File fichero){
 
         int opcion = 0;
-        do {
+        
             
-            System.out.println("╔═════════════════════════════════════════╗");
-            System.out.println("║             ¿QUÉ DESEA HACER?           ║");
-            System.out.println("║═════════════════════════════════════════║");
-            System.out.println("║ 1 - Convertir fichero                   ║");
-            System.out.println("║ 2 - Leer otro fichero                   ║");
-            System.out.println("║ 0 - Salir                               ║");
-            System.out.println("╚═════════════════════════════════════════╝");
-
-            System.out.println("\n¿Qué desea realizar?\n");
+            System.out.println(BLUE+"Fichero seleccionado: "+RESET+fichero.getName());
+            System.out.println(BLUE+"\nPulse [1] para convertir el fichero a otro formato.\n"+BLUE+"Pulse [2] para leer otro archivo."+PURPLE+"\nPulse [0] para salir.\n"+RESET);
             opcion = Integer.parseInt(sc.nextLine());
 
             switch (opcion) {
@@ -153,29 +144,29 @@ public class App {
                 break;
 
                 case 2:
-                    System.out.println("\nContenido de la carpeta seleccionada: \n\n" + contenidoCarpeta(carpetaseleccionada));
-                    System.out.println("\nQué archivo quieres seleccionar?\n");
+                    System.out.println(BLUE+"\nContenido de la carpeta seleccionada: \n\n"+RESET + contenidoCarpeta(carpetaseleccionada));
+                    System.out.println(BLUE+"\nQué archivo quieres seleccionar?\n"+RESET);
                     String nombrefichero = sc.nextLine();
                     String ruta = carpetaseleccionada.getAbsolutePath() + "/" + nombrefichero;
                     File nuevoFichero = new File(ruta);
-                    if (!nuevoFichero.exists() || comprobarExtension(nuevoFichero).equals("\nTipo de archivo no válido\n\n")) {
-                        System.out.println("\nError: No se ha seleccionado un archivo válido para convertir.\n\n");
+                    if (!fichero.exists() || comprobarExtension(fichero).equals("\nTipo de archivo no válido\n\n")) {
+                        System.out.println(RED+"\nError: No se ha seleccionado un archivo válido para convertir.\n\n"+RESET);
                     }else{
-                    lecturaFichero(nuevoFichero, ruta);
-                    menu3(carpetaseleccionada, nuevoFichero);
-                }
+                        lecturaFichero(nuevoFichero, ruta);
+                        menu3(carpetaseleccionada, nuevoFichero);
+                    }
                 break;
             
                 case 0:
-                    System.out.println("\nVolviendo al menú anterior\n\n");
+                    System.out.println(GREEN+"\nSaliendo...\n\n"+RESET);
                 break;
 
                 default:
-                    System.out.println("\nValor incorrecto\n\n");
+                    System.out.println(RED+"\nValor incorrecto\n\n"+RESET);
                 break;
             }
 
-        } while (opcion != 0);
+        
 
 
     }
@@ -183,17 +174,8 @@ public class App {
     public static void menu4(File fichero) {
 
         int opcion = 0;
-        do {
-            System.out.println("╔═════════════════════════════════════════╗");
-            System.out.println("║             ¿QUÉ DESEA HACER?           ║");
-            System.out.println("║═════════════════════════════════════════║");
-            System.out.println("║ 1 - .CSV                                ║");
-            System.out.println("║ 2 - .JSON                               ║");
-            System.out.println("║ 3 - .XML                                ║");
-            System.out.println("║ 0 - Salir                               ║");
-            System.out.println("╚═════════════════════════════════════════╝");
-    
-            System.out.println("\n¿Qué desea realizar?\n");
+        
+            System.out.println(menuFormatos());
             opcion = Integer.parseInt(sc.nextLine());
     
             switch (opcion) {
@@ -201,7 +183,7 @@ public class App {
                     if (!fichero.getName().endsWith(".csv")) {
                         convertirFichero(fichero, ".csv");
                     } else {
-                        System.out.println("\nError: El archivo ya es un CSV, no se puede convertir\n\n");
+                        System.out.println(RED+"\nError: El archivo ya es un CSV, no se puede convertir\n\n"+RESET);
                     }
                     break;
     
@@ -209,7 +191,7 @@ public class App {
                     if (!fichero.getName().endsWith(".json")) {
                         convertirFichero(fichero, ".json");
                     } else {
-                        System.out.println("\nError: El archivo ya es un JSON, no se puede convertir\n\n");
+                        System.out.println(RED+"\nError: El archivo ya es un JSON, no se puede convertir\n\n"+RESET);
                     }
                     break;
     
@@ -217,34 +199,34 @@ public class App {
                     if (!fichero.getName().endsWith(".xml")) {
                         convertirFichero(fichero, ".xml");
                     } else {
-                        System.out.println("\nError: El archivo ya es un XML, no se puede convertir\n\n");
+                        System.out.println(RED+"\nError: El archivo ya es un XML, no se puede convertir\n\n"+RESET);
                     }
                     break;
     
                 case 0:
-                    System.out.println("\nVolviendo al menú anterior\n\n");
+                    System.out.println(PURPLE+"\nVolviendo al menú anterior\n\n"+RESET);
                     break;
     
                 default:
-                    System.out.println("\nValor incorrecto\n\n");
+                    System.out.println(RED+"\nValor incorrecto\n\n"+RESET);
                     break;
             }
-        } while (opcion != 0);
+        
     }
     
     private static void convertirFichero(File fichero, String extension) {
-        System.out.println("\n¿En qué ruta quieres alojar el archivo?\n");
+        System.out.println(BLUE+"\n¿En qué ruta quieres alojar el archivo?\n"+RESET);
         String ruta = sc.nextLine();
-        System.out.println("\n¿Qué nombre quieres ponerle al archivo? Escríbelo SIN la extensión\n");
+        System.out.println(BLUE+"\n¿Qué nombre quieres ponerle al archivo? Escríbelo "+PURPLE+"SIN la extensión\n"+RESET);
         String nombreArchivo = sc.nextLine();
         String rutaCompleta = ruta + "/" + nombreArchivo + extension;
         File rutaDestino = new File(ruta);
-    
+        
         if (rutaDestino.exists()) {
             if (extension.equals(".xml")) {
-                System.out.println("\n\n¿Cómo te gustaría llamar al elemento raíz?\n");
+                System.out.println(BLUE+"\n\n¿Cómo te gustaría llamar al elemento raíz del xml?"+RESET+" Este abrirá y cerrará tu XML\n");
                 String elementoRaiz = sc.nextLine();
-                System.out.println("\n¿Cómo te gustaría llamar a los elementos?\n");
+                System.out.println(BLUE+"\n¿Cómo te gustaría llamar a los elementos?"+RESET+" Este abrirá y cerrará cada elemento del XML\n");
                 String elementoItem = sc.nextLine();
                 Conversor conversor = new Conversor(rutaCompleta, gestor, elementoRaiz, elementoItem);
                 conversor.conversorXML();
@@ -256,9 +238,9 @@ public class App {
                     conversor.conversorJSON();
                 }
             }
-            System.out.println("\nArchivo convertido a " + extension.toUpperCase() + " con éxito.\n\n");
+            System.out.println(BLUE+"\nArchivo convertido a " + extension.toUpperCase() + " con éxito. Puedes encontrarlo en "+PURPLE+rutaCompleta+"\n\n"+RESET);
         } else {
-            System.out.println("\nError: La ruta especificada no es válida.\n\n");
+            System.out.println(RED+"\nError: La ruta especificada no es válida.\n\n"+RESET);
         }
     }
 
@@ -278,8 +260,7 @@ public class App {
                 }
             }
             return contenido.toString();
-        }
-        return "\nCarpeta no válida o vacía\n\n";
+        } else return RED+"\nCarpeta no válida o vacía\n\n"+RESET;
     }
 
     public static String comprobarExtension(File fichero){
@@ -291,7 +272,7 @@ public class App {
         }else if(fichero.getName().endsWith(".xml")){
             return ".xml";
         }else{
-            return "\nTipo de archivo no válido\n\n";
+            return RED+"\nTipo de archivo no válido\n\n"+RESET;
         }
         
     }
@@ -303,20 +284,20 @@ public class App {
             if(comprobarExtension(fichero).equals(".csv")){
                 CSV csv = new CSV (ruta);
                 csv.escribirFichero(gestor);
-                System.out.println("\nFichero correcto\n\n");
+                System.out.println(GREEN+"\nFichero correcto\n\n"+RESET);
             }else if(comprobarExtension(fichero).equals(".json")){
                 Json json = new Json (ruta);
                 json.escribirFichero(gestor);
-                System.out.println("\nFichero correcto\n\n");
+                System.out.println(GREEN+"\nFichero correcto\n\n"+RESET);
             }else if(comprobarExtension(fichero).equals(".xml")){
                 xml XML = new xml (ruta);
                 XML.escribirFichero(gestor);
-                System.out.println("\nFichero correcto\n\n");
+                System.out.println(GREEN+"\nFichero correcto\n\n"+RESET);
             }else{
-                System.out.println("\nError\n\n");
+                System.out.println(RED+"\nError\n\n"+RESET);
             }
         }else{
-            System.out.println("\nEl fichero no ha sido encontrado\n\n");
+            System.out.println(RED+"\nEl fichero no ha sido encontrado\n\n"+RESET);
         }
     }
 

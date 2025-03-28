@@ -33,20 +33,6 @@ public class xml {
         return carpetaSeleccionada;
     }
 
-    public String getContenidoCarpeta() {
-        if (carpetaSeleccionada != null && carpetaSeleccionada.isDirectory()) {
-            StringBuilder contenido = new StringBuilder();
-            File[] archivos = carpetaSeleccionada.listFiles();
-            if (archivos != null) {
-                for (File archivo : archivos) {
-                    contenido.append(archivo.getName()).append("\n");
-                }
-            }
-            return contenido.toString();
-        }
-        return "Carpeta vacía o no válida";
-    }
-
     public boolean comprobarExiste(){
         if (fichero.exists()) {
             return true;
