@@ -1,6 +1,11 @@
 import java.io.File;
 import java.util.Scanner;
 
+/**
+ * @author Gloria Curado García
+ * @author Guadalupe Morcillo Guijarro
+ * @author María Teresa Calvo Peña
+ */
 
 public class App {
 

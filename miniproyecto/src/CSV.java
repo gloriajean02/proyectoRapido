@@ -1,15 +1,15 @@
 import java.io.*;
 import java.util.HashMap;
 
+/**
+ * @author Gloria Curado García
+ * @author Guadalupe Morcillo Guijarro
+ * @author María Teresa Calvo Peña
+ */
+
 public class CSV {
     private File fichero;
     private File carpetaSeleccionada;
-
-    /*Constructor por defecto que establece un archivo CSV por defecto */
-    public CSV() {
-        fichero = new File("proyectoRapido\\miniproyecto/fichero/coches.csv");
-        carpetaSeleccionada = fichero.getParentFile();
-    }
 
     /*Constructor que permite especificar una ruta de archivo CSV */
     public CSV(String ruta) {

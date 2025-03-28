@@ -4,14 +4,16 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 
+/**
+ * @author Gloria Curado García
+ * @author Guadalupe Morcillo Guijarro
+ * @author María Teresa Calvo Peña
+ */
+
 public class Json {
 
     private File fichero;
     private File carpetaSeleccionada;
-
-    public Json (){
-        fichero = new File("miniproyecto/fichero/coches.json");
-    }
 
     public Json(String ruta){
         this.fichero = new File(ruta);

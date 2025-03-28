@@ -1,6 +1,12 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * @author Gloria Curado García
+ * @author Guadalupe Morcillo Guijarro
+ * @author María Teresa Calvo Peña
+ */
+
 public class GestorDatos{
     private ArrayList<HashMap<String,String>> gestor;
 

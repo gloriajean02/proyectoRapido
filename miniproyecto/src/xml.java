@@ -4,14 +4,16 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 
+/**
+ * @author Gloria Curado García
+ * @author Guadalupe Morcillo Guijarro
+ * @author María Teresa Calvo Peña
+ */
+
 public class xml {
 
     private File fichero;
     private File carpetaSeleccionada;
-
-    public xml (){
-        fichero = new File("miniproyecto/fichero/coches.xml");
-    }
 
     public xml(String ruta){
         this.fichero = new File(ruta);
