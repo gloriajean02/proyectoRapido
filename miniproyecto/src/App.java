@@ -32,7 +32,14 @@ public class App {
         do {
             System.out.println(bienvenida());
             System.out.println(menuPrincipal());
-            opcion = Integer.parseInt(sc.nextLine());
+
+            //try catch para manejar la excepcion de no int
+            try {
+                opcion = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println(RED + "\nError: Debes ingresar un número entero válido.\n" + RESET);
+                opcion = -1; //asignamos un valor incorrecto para que vuelva a mostrar el menú
+            }
 
             switch (opcion) {
                 case 1:
@@ -89,7 +96,7 @@ public class App {
                 "║"+RESET+" 1 - .CSV                                "+PURPLE+"║\n"+
                 "║"+RESET+" 2 - .JSON                               "+PURPLE+"║\n"+
                 "║"+RESET+" 3 - .XML                                "+PURPLE+"║\n"+
-                "║"+RESET+" 0 - Salir                               "+PURPLE+"║\n"+
+                "║"+RESET+" 0 - Salir al menú principal             "+PURPLE+"║\n"+
                 "╚═════════════════════════════════════════╝\n"+RESET;
     }
 
@@ -98,8 +105,15 @@ public class App {
         int opcion = 0;
     
             System.out.println(BLUE+"\nContenido de la carpeta seleccionada: \n\n"+RESET + contenidoCarpeta(carpetaseleccionada));
-            System.out.println(GREEN+"Pulse [1] para convertir uno de estos ficheros.\n"+PURPLE+"Pulse [0] para salir.\n"+RESET);
-            opcion = Integer.parseInt(sc.nextLine());
+            System.out.println(GREEN+"Pulse [1] para convertir uno de estos ficheros.\n"+PURPLE+"Pulse [0] para salir al menú principal.\n"+RESET);
+
+            //try catch para manejar la excepcion de no int
+            try {
+                opcion = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println(RED + "\nError: Debes ingresar un número entero válido.\n" + RESET);
+                opcion = -1; //asignamos un valor incorrecto para que vuelva a mostrar el menú
+            }
 
             switch (opcion) {
                 case 1: 
@@ -138,8 +152,15 @@ public class App {
         
             
             System.out.println(BLUE+"Fichero seleccionado: "+RESET+fichero.getName());
-            System.out.println(BLUE+"\nPulse [1] para convertir el fichero a otro formato.\n"+BLUE+"Pulse [2] para leer otro archivo."+PURPLE+"\nPulse [0] para salir.\n"+RESET);
-            opcion = Integer.parseInt(sc.nextLine());
+            System.out.println(BLUE+"\nPulse [1] para convertir el fichero a otro formato.\n"+BLUE+"Pulse [2] para leer otro archivo."+PURPLE+"\nPulse [0] para salir al menú principal.\n"+RESET);
+            
+            //try catch para manejar la excepcion de no int
+            try {
+                opcion = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println(RED + "\nError: Debes ingresar un número entero válido.\n" + RESET);
+                opcion = -1; //asignamos un valor incorrecto para que vuelva a mostrar el menú
+            }
 
             switch (opcion) {
 
@@ -174,7 +195,14 @@ public class App {
         int opcion = 0;
         
             System.out.println(menuFormatos());
-            opcion = Integer.parseInt(sc.nextLine());
+            
+            //try catch para manejar la excepcion de no int
+            try {
+                opcion = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println(RED + "\nError: Debes ingresar un número entero válido.\n" + RESET);
+                opcion = -1; //asignamos un valor incorrecto para que vuelva a mostrar el menú
+            }
     
             switch (opcion) {
                 case 1:
@@ -182,8 +210,9 @@ public class App {
                         convertirFichero(fichero, ".csv");
                     } else {
                         System.out.println(RED+"\nError: El archivo ya es un CSV, no se puede convertir\n\n"+RESET);
+                        menu4(fichero);
                     }
-                    menu4(fichero);
+                    
                     break;
                 
                 case 2:
@@ -191,8 +220,8 @@ public class App {
                         convertirFichero(fichero, ".json");
                     } else {
                         System.out.println(RED+"\nError: El archivo ya es un JSON, no se puede convertir\n\n"+RESET);
+                        menu4(fichero);
                     }
-                    menu4(fichero);
                 
                     break;
 
@@ -202,12 +231,13 @@ public class App {
                         convertirFichero(fichero, ".xml");
                     } else {
                         System.out.println(RED+"\nError: El archivo ya es un XML, no se puede convertir\n\n"+RESET);
+                        menu4(fichero);
                     }
-                    menu4(fichero);
+
                     break;
     
                 case 0:
-                    System.out.println(PURPLE+"\nVolviendo al menú anterior\n\n"+RESET);
+                    System.out.println(PURPLE+"\nSaliendo...\n\n"+RESET);
                     break;
     
                 default:
@@ -219,12 +249,31 @@ public class App {
     }
     
     private static void convertirFichero(File fichero, String extension) {
-        System.out.println(BLUE+"\n¿En qué ruta quieres alojar el archivo?\n"+RESET);
-        String ruta = sc.nextLine();
+        File rutaDestino = null;
+        String ruta = "";
+        Boolean rutaValida = false;
+
+        while (rutaValida == false) {
+            try {
+                System.out.println(BLUE + "\n¿En qué ruta quieres alojar el archivo?\n" + RESET);
+                ruta = sc.nextLine();
+                rutaDestino = new File(ruta);
+        
+                if (!rutaDestino.exists()) {
+                    throw new IllegalArgumentException("Error: La ruta ingresada no existe.");
+                } else {
+                    rutaValida = true;
+                }
+        
+            } catch (IllegalArgumentException e) {
+                System.out.println(RED + e.getMessage() + RESET);
+            }
+        }
+
         System.out.println(BLUE+"\n¿Qué nombre quieres ponerle al archivo? Escríbelo "+PURPLE+"SIN la extensión\n"+RESET);
         String nombreArchivo = sc.nextLine();
         String rutaCompleta = ruta + "/" + nombreArchivo + extension;
-        File rutaDestino = new File(ruta);
+       
  
         if (rutaDestino.exists()) {
             if (extension.equals(".xml")) {
